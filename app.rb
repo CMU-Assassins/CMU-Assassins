@@ -22,6 +22,10 @@ module Assassins
     end
 
     get '/' do
+      slim :teaser
+    end
+
+    get '/*' do
       slim :coming_soon
     end
   end
