@@ -35,7 +35,7 @@ module Assassins
     end
 
     get '/main.css' do
-      less :style
+      less :main, :views => 'styles'
     end
 
     get '/*' do

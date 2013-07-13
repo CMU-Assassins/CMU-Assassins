@@ -2,22 +2,27 @@ form.form-horizontal
     fieldset
         legend Sign Up
         .control-group
+            label.control-label Full Name
+            .controls
+                input[type='text' required placeholder='Andrew Carnegie']
+        .control-group
             label.control-label AndrewID
             .controls
-                input[type='text' required placeholder='AndrewID']
+                input[type='text' required placeholder='acarnegie']
         .control-group
             label.control-label Room Number
             .controls
-                input[type='text' required placeholder='Room Number']
-        .control-group
+                input[type='text' required placeholder='725']
             .controls
                 label.checkbox
                     input[type="checkbox"] E Tower?
         .control-group
             label.control-label Program
             .controls
-                input[type='text' required placeholder='Program']
+                select
+                    - programs.each do |program|
+                        option id=program.id #{program.title}
         .control-group
-            label.control-label Prefered Email
+            label.control-label Preferred Email
             .controls
                 input[type='email' required placeholder='abc@example.com']

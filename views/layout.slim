@@ -7,7 +7,7 @@ html
     meta name="keywords" content="CMU Spoon Assassins Pre-college"
     meta name="author" content="lezed1, tchebb"
 
-    link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/slate/bootstrap.min.css" rel="stylesheet"
+    link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cyborg/bootstrap.min.css" rel="stylesheet"
     
     link href="main.css" rel="stylesheet"
 
@@ -22,13 +22,19 @@ html
         .container
           a.brand href="/" CMU Assassins
 
-          ul.nav
-            li
-              a href="login" Log In
-            li
-              a href="signup" Sign Up
-            li
-              a href="leaderboard" Leaderboard
+          a.btn.btn-navbar data-toggle='collapse' data-target=".nav-collapse"
+            .icon-bar
+            .icon-bar
+            .icon-bar
+
+          .nav-collapse.collapse
+            ul.nav
+              li
+                a href="login" Log In
+              li
+                a href="signup" Sign Up
+              li
+                a href="leaderboard" Leaderboard
     
 
     .container-fluid
