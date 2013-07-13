@@ -30,7 +30,8 @@ module Assassins
     end
 
     get '/signup' do
-      slim :signup
+      programs = Program.all
+      slim :signup, :locals => {:programs => programs}
     end
 
     get '/main.css' do
