@@ -22,7 +22,7 @@ module Assassins
     end
 
     get '/' do
-      slim :teaser
+      slim :index
     end
 
     get '/login' do
