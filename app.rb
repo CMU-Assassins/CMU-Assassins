@@ -25,6 +25,18 @@ module Assassins
       slim :teaser
     end
 
+    get '/login' do
+      slim :login
+    end
+
+    get '/signup' do
+      slim :signup
+    end
+
+    get '/main.css' do
+      less :style
+    end
+
     get '/*' do
       slim :coming_soon
     end

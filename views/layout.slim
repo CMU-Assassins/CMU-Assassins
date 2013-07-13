@@ -3,22 +3,35 @@ html
   head
     title CMU Assassins - "Make your mark"
     meta charset="utf-8"
-    meta name='description' content='The central server for CMU Assassins'
+    meta name='description' content="The central server for CMU Assassins"
     meta name="keywords" content="CMU Spoon Assassins Pre-college"
     meta name="author" content="lezed1, tchebb"
 
     link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/slate/bootstrap.min.css" rel="stylesheet"
     
-    //link href="MyVeryOwnSpecialStyleSheet" rel="stylsheet"
+    link href="main.css" rel="stylesheet"
 
     link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"
 
 
 
   body
+
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          a.brand href="/" CMU Assassins
+
+          ul.nav
+            li
+              a href="login" Log In
+            li
+              a href="signup" Sign Up
+            li
+              a href="leaderboard" Leaderboard
     
 
-    .container
+    .container-fluid
 
       == yield
 
