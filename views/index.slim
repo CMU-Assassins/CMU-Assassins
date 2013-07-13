@@ -1,5 +1,6 @@
-.container
-    .row
-        .span6.veritcal-allign VIDEO
-        .span3 render "signup"
-        .span3 render "login"
+.row
+    .span6 VIDEO
+    .span6
+        == slim :signup, :locals => {:programs => {}}, :layout => false
+        br
+        == slim :login, :layout => false

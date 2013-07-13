@@ -1,29 +1,27 @@
-.container
-    form.form-horizontal
-        fieldset
-            legend Sign Up
-            .control-group
-                label.control-label Full Name
-                .controls
-                    input[type='text' required placeholder='Andrew Carnegie']
-            .control-group
-                label.control-label AndrewID
-                .controls
-                    input[type='text' required placeholder='acarnegie']
-            .control-group
-                label.control-label Room Number
-                .controls
-                    input[type='text' required placeholder='725']
-                .controls
-                    label.checkbox
-                        input[type="checkbox"] E Tower?
-            .control-group
-                label.control-label Program
-                .controls
-                    select
-                        - programs.each do |program|
-                            option id=program.id #{program.title}
-            .control-group
-                label.control-label Preferred Email
-                .controls
-                    input[type='email' required placeholder='abc@example.com']
+form.form-horizontal
+    fieldset
+        legend Sign Up
+        .control-group
+            label.control-label for='name' Full Name
+            .controls
+                input#name[name='name' type='text' required placeholder='Andrew Carnegie']
+        .control-group
+            label.control-label for='email' Email
+            .controls
+                input#email[name='email' type='email' required placeholder='abc@example.com']
+        .control-group
+            label.control-label for='room' Room Number
+            .controls
+                input#room[name='room' type='text' required placeholder='725']
+            .controls
+                label.checkbox
+                    input[name='etower' type="checkbox"] E Tower?
+        .control-group
+            label.control-label Program
+            .controls
+                select
+                    - programs.each do |program|
+                        option id=program.id #{program.title}
+        .control-group
+            .controls
+                button.btn.btn-primary type='submit' Sign Up

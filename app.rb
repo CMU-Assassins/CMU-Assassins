@@ -34,6 +34,11 @@ module Assassins
       slim :signup, :locals => {:programs => programs}
     end
 
+    get '/leaderboard' do
+      players = Player.all
+      slim :leaderboard, :locals => {:players => players}
+    end
+
     get '/main.css' do
       less :main, :views => 'styles'
     end
