@@ -45,6 +45,10 @@ module Assassins
       redirect to('/')
     end
 
+    get '/rules' do
+      slim :rules
+    end
+
     get '/leaderboard' do
       players = Player.all
       slim :leaderboard, :locals => {:players => players}
