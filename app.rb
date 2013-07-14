@@ -34,6 +34,17 @@ module Assassins
       slim :signup, :locals => {:programs => programs}
     end
 
+    post '/signup' do
+      if params.has_key? 'etower'
+        room = 'E' + params['room']
+      else
+        room = params['room']
+      end
+
+      Player.create(:name => params['name'], :email => params['email'], :room_number => room, :program_id => params['program'])
+      redirect to('/')
+    end
+
     get '/leaderboard' do
       players = Player.all
       slim :leaderboard, :locals => {:players => players}

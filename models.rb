@@ -14,21 +14,16 @@ module Assassins
 
     property :id, Serial
     property :name, String
-    property :andrew_id, String
+    property :email, String, :format => :email_address, :unique => true
     property :room_number, String
-    before :save do
-      room_number = room_number.upcase
-    end
-
     validates_format_of :room_number, :with => /^E?\d{3}$/
-    property :email, String, :required => false, :format => :email
-    def email
-      super.empty? ? "#{andrew_ID}@andrew.cmu.edu" : super
+    before :save do
+      self.room_number = self.room_number.upcase
     end
 
     property :failed_kills, Integer, :default => 0
     belongs_to :program
-    belongs_to :target, :model => 'Player'
+    belongs_to :target, :model => 'Player', :required => false
   end
 end
 

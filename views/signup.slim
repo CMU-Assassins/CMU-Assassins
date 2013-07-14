@@ -1,4 +1,4 @@
-form.form-horizontal
+form.form-horizontal[action='/signup' method='post']
     fieldset
         legend Sign Up
         .control-group
@@ -19,9 +19,9 @@ form.form-horizontal
         .control-group
             label.control-label Program
             .controls
-                select
+                select[name='program']
                     - programs.each do |program|
-                        option id=program.id #{program.title}
+                        option value=program.id #{program.title}
         .control-group
             .controls
                 button.btn.btn-primary type='submit' Sign Up
