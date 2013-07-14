@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title CMU Assassins - "Make your mark"
+    title CMU Assassins - Make your mark
     meta charset="utf-8"
     meta name='description' content="The central server for CMU Assassins"
     meta name="keywords" content="CMU Spoon Assassins Pre-college"
@@ -27,6 +27,9 @@ html
             .icon-bar
             .icon-bar
 
+          a.btn.btn-navbar data-toggle='collapse' data-target=".nav-collapse-login"
+            .icon-user.icon-white
+
           .nav-collapse.collapse
             ul.nav
               li
@@ -35,6 +38,9 @@ html
                 a href="signup" Sign Up
               li
                 a href="leaderboard" Leaderboard
+
+          .nav-collapse-login.collapse
+            form.nav-form.pull-right
     .container
       == yield
 
