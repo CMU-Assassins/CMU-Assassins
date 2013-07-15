@@ -24,9 +24,9 @@ form.form-horizontal[action='/signup' method='post']
         .control-group
             label.control-label Program
             .controls
-                select[name='program']
+                label.radio name='program'
                     - programs.each do |program|
-                        option value=program.id #{program.title}
+                        intput type='radio' value=program.id #{program.title}
         .control-group
             .controls
                 button.btn.btn-primary type='submit' Sign Up
