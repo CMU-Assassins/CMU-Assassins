@@ -54,6 +54,10 @@ module Assassins
       slim :leaderboard, :locals => {:players => players}
     end
 
+    get '/dashboard' do
+      slim :dashboard
+    end
+
     get '/main.css' do
       less :main, :views => 'styles'
     end

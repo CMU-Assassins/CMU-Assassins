@@ -27,13 +27,8 @@ html
             .icon-bar
             .icon-bar
 
-          a.btn.btn-navbar data-toggle='collapse' data-target=".nav-collapse-login"
-            .icon-user.icon-white
-
           .nav-collapse.collapse
             ul.nav
-              li
-                a href="login" Log In
               li
                 a href="signup" Sign Up
               li
@@ -41,8 +36,16 @@ html
               li
                 a href="rules" Rules
 
-          .nav-collapse-login.collapse
-            form.nav-form.pull-right
+            form.navbar-form.pull-right(action='/login' method='post')
+              .input-prepend.fix-padding
+                span.add-on
+                  i.icon-user
+                input.input-medium type='text' placeholder='AndrewID'
+              .input-prepend.fix-padding
+                span.add-on
+                  i.icon-lock
+                input.input-small type='password' placeholder='Secret Words'
+              button.btn.btn-primary.fix-padding type='submit' Log In
     .container
       == yield
 
