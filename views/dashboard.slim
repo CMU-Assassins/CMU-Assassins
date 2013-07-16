@@ -1,7 +1,7 @@
 .row
   .offset3.span6
     .well.text-center
-      h4 Hello, #{user.name}!
+      h4 Hello, #{user.name.split(' ').first}!
       #secret
         | Your secret words are 
         .label.label-success #{user.secret}
