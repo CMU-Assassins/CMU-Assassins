@@ -30,14 +30,14 @@ html
           .nav-collapse.collapse
             ul.nav
               li
-                a href=url('/signup') Sign Up
+                - unless logged_in?
+                  a href=url('/signup') Sign Up
+                - else
+                  a href=url('/dashboard') Dashboard
               li
                 a href=url('/leaderboard') Leaderboard
               li
                 a href=url('/rules') Rules
-              - if logged_in?
-                li
-                  a href=url('/dashboard') Dashboard
 
             - if logged_in?
               a.btn.pull-right href=url('/logout') Log Out
@@ -65,5 +65,5 @@ html
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-40914699-2', 'cmu-assassins.tk');
+      ga('create', 'UA-42485136-2', 'cmu-assassins.tk');
       ga('send', 'pageview');
