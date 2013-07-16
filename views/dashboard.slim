@@ -1,8 +1,8 @@
 .row
-    .offset3.span6
-        .well.text-center
-            h4 Hello, #{user.name}!
-
-            h5 Secret Words: #{user.secret}
-
-            h5 Target: Will be assigned 7/21/13!
+  .offset3.span6
+    .well.text-center
+      h4 Hello, #{user.name}!
+      #secret
+        | Your secret words are 
+        .label.label-success #{user.secret}
+      #target Targets will be assigned on 7/21/13!
