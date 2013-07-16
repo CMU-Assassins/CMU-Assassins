@@ -28,17 +28,7 @@ html
             .icon-bar
 
           .nav-collapse.collapse
-            ul.nav
-              li
-                - unless logged_in?
-                  a href=url('/signup') Sign Up
-                - else
-                  a href=url('/dashboard') Dashboard
-              li
-                a href=url('/leaderboard') Leaderboard
-              li
-                a href=url('/rules') Rules
-
+            == render_navigation
             - if logged_in?
               a.btn.pull-right href=url('/logout') Log Out
             - else

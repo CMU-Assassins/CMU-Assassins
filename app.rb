@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'bundler/setup'
 require 'sinatra/base'
+require 'simple-navigation'
 require 'data_mapper'
 require 'less'
 require 'slim'
@@ -14,6 +15,9 @@ module Assassins
       enable :method_override
       enable :logging
       enable :sessions
+
+      SimpleNavigation.set_env(root, environment)
+      helpers ::SimpleNavigation::Helpers
 
       DataMapper::Logger.new($stderr, settings.development? ? :debug : :info)
       DataMapper.setup(:default, ENV['DATABASE_URL'])
