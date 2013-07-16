@@ -54,9 +54,9 @@ module Assassins
       player.generate_secret! 2
       if (player.save)
         session[:player_id] = player.id
-        return redirect to('/dashboard')
+        redirect to('/dashboard')
       else
-        return slim :signup, :locals => {:errors => player.errors.full_messages}
+        slim :signup, :locals => {:errors => player.errors.full_messages}
       end
     end
 
