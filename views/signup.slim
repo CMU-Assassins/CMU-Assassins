@@ -1,10 +1,3 @@
-- if defined?(errors)
-    .alert.alert-error
-        ul
-            - errors.full_messages.each do |message|
-                li
-                    = message
-
 form.form-horizontal[action=url('/signup') method='post']
     fieldset
         legend Sign Up

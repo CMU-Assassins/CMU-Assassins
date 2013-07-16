@@ -53,6 +53,12 @@ html
                   input.input-small type='password' name='secret' placeholder='Secret Words'
                 button.btn.btn-primary.fix-padding type='submit' Log In
     .container
+      - if (defined?(errors) && errors.respond_to?(:each))
+        .alert.alert-error.alert-block
+          ul
+            - errors.each do |message|
+              li
+                = message
       == yield
 
     script src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'

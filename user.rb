@@ -30,7 +30,7 @@ module Assassins
           session[:player_id] = player.id
           redirect to('/dashboard')
         else
-          redirect to('/')
+          slim :login, :locals => {:errors => ['Incorrect Andrew ID or secret words. Please try again.']}
         end
       else
         redirect to('/')
@@ -56,7 +56,7 @@ module Assassins
         session[:player_id] = player.id
         return redirect to('/dashboard')
       else
-        return slim :signup, :locals => {:errors => player.errors}
+        return slim :signup, :locals => {:errors => player.errors.full_messages}
       end
     end
 
