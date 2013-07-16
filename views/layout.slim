@@ -35,23 +35,23 @@ html
                 a href="leaderboard" Leaderboard
               li
                 a href="rules" Rules
-              - if is_logged_in
+              - if logged_in?
                 li
                   a href="dashboard" Dashboard
 
-            - unless is_logged_in
+            - if logged_in?
+              a.btn href='logout' Log Out
+            - else
               form.navbar-form.pull-right(action='/login' method='post')
                 .input-prepend.fix-padding
                   span.add-on
                     i.icon-user
-                  input.input-medium type='text' placeholder='AndrewID'
+                  input.input-medium type='text' name='andrew_id' placeholder='Andrew ID'
                 .input-prepend.fix-padding
                   span.add-on
                     i.icon-lock
                   input.input-small type='password' placeholder='Secret Words'
                 button.btn.btn-primary.fix-padding type='submit' Log In
-            - else
-              a.btn href='logout' Log Out
     .container
       == yield
 

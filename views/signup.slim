@@ -11,22 +11,21 @@ form.form-horizontal[action='/signup' method='post']
             .controls
                 input#name[name='name' type='text' required placeholder='Andrew Carnegie']
         .control-group
-            label.control-label for='email' Email
+            label.control-label for='andrew_id' Andrew ID
             .controls
-                input#email[name='email' type='email' required placeholder='abc@example.com']
+                input#andrew_id[name='andrew_id' type='text' required placeholder='acarnegie']
         .control-group
-            label.control-label for='room' Room Number
+            label.control-label for='floor' Floor/Tower
             .controls
-                input#room[name='room' type='text' required placeholder='725']
-            .controls
-                label.checkbox
-                    input[name='etower' type="checkbox"] E Tower?
+                select[name='floor']
+                    - Assassins::Floor.all.each do |floor|
+                        option value=floor.id #{floor.description}
         .control-group
             label.control-label Program
             .controls
                 label.radio name='program'
-                    - programs.each do |program|
-                        intput type='radio' value=program.id #{program.title}
+                    - Assassins::Program.all.each do |program|
+                        input type='radio' name='program' value=program.id #{program.title}
         .control-group
             .controls
                 button.btn.btn-primary type='submit' Sign Up

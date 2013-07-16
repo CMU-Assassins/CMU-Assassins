@@ -9,21 +9,37 @@ module Assassins
     property :title, String
   end
 
+  class Floor
+    include DataMapper::Resource
+
+    property :id, Serial
+    property :name, String
+    property :description, String
+  end
+
   class Player
     include DataMapper::Resource
 
     property :id, Serial
     property :name, String
-    property :email, String, :format => :email_address, :unique => true
-    property :room_number, String
-    validates_format_of :room_number, :with => /^E?\d{3}$/
-    before :save do
-      self.room_number = self.room_number.upcase
-    end
+    property :andrew_id, String, :unique => true
+    belongs_to :floor
+    property :failed_kill_attempts, Integer, :default => 0
+    property :secret, String
 
-    property :failed_kills, Integer, :default => 0
     belongs_to :program
     belongs_to :target, :model => 'Player', :required => false
+
+    def generate_secret! (num_words)
+      secret_words = []
+      File.open('res/words') do |f|
+        word_list = f.lines.to_a
+        num_words.times do
+          secret_words << word_list.sample.capitalize
+        end
+      end
+      self.secret = secret_words.join(' ')
+    end
   end
 end
 

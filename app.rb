@@ -13,36 +13,16 @@ module Assassins
     configure do
       enable :method_override
       enable :logging
+      enable :sessions
 
       DataMapper::Logger.new($stderr, settings.development? ? :debug : :info)
       DataMapper.setup(:default, ENV['DATABASE_URL'])
-      DataMapper::Model.raise_on_save_failure = true
       DataMapper.finalize
       DataMapper.auto_upgrade!
     end
 
     get '/' do
       slim :index
-    end
-
-    get '/login' do
-      slim :login
-    end
-
-    get '/signup' do
-      programs = Program.all
-      slim :signup, :locals => {:programs => programs}
-    end
-
-    post '/signup' do
-      if params.has_key? 'etower'
-        room = 'E' + params['room']
-      else
-        room = params['room']
-      end
-
-      Player.create(:name => params['name'], :email => params['email'], :room_number => room, :program_id => params['program'])
-      redirect to('/')
     end
 
     get '/rules' do
@@ -54,10 +34,6 @@ module Assassins
       slim :leaderboard, :locals => {:players => players}
     end
 
-    get '/dashboard' do
-      slim :dashboard
-    end
-
     get '/main.css' do
       less :main, :views => 'styles'
     end
@@ -67,5 +43,7 @@ module Assassins
     end
   end
 end
+
+require_relative 'user.rb'
 
 # vim:set ts=2 sw=2 et:
