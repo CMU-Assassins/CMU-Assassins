@@ -19,14 +19,14 @@ form.form-horizontal[action='/signup' method='post']
         .control-group
             label.control-label for='floor' Floor/Tower
             .controls
-                select[name='floor']
+                select.multiple[name='floor']
                     - Assassins::Floor.all.each do |floor|
                         option value=floor.id #{floor.description}
         .control-group
             label.control-label Program
             .controls
-                label.radio name='program'
-                    - Assassins::Program.all.each do |program|
+                - Assassins::Program.all.each do |program|
+                    label.radio name='program'
                         input type='radio' name='program' value=program.id #{program.title}
         .control-group
             .controls

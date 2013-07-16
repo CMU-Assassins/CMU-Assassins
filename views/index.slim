@@ -1,8 +1,12 @@
 .row
-    .span6
-        img src='skull.png' alt="You won't see it coming"
-    .span6
-        == slim :signup, :locals => {:programs => {}}, :layout => false
+    - unless logged_in?
+        .span6
+            img src='skull.png' alt="You won't see it coming"
+        .span6
+            == slim :signup, :locals => {:programs => {}}, :layout => false
+    - else
+        .span12
+            img src='skull.png' alt="You won't see it coming"        
 
 .row
     .span12
