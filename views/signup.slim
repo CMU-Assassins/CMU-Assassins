@@ -12,7 +12,7 @@ form.form-horizontal[action=url('/signup') method='post']
         .control-group
             label.control-label for='floor' Floor/Tower
             .controls
-                select.input-block-level[multiple name='floor']
+                select.input-block-level[name='floor']
                     - Assassins::Floor.all.each do |floor|
                         option value=floor.id #{floor.description}
         .control-group
