@@ -61,7 +61,11 @@ module Assassins
     end
 
     get '/dashboard' do
-      slim :dashboard
+      if !user.nil?
+        slim :dashboard
+      else
+        redirect to('/login')
+      end
     end
  end
 end
