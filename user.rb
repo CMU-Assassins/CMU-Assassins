@@ -27,6 +27,7 @@ module Assassins
         player = Player.first(:andrew_id => params['andrew_id'])
         if (!player.nil? && params.has_key?('secret') &&
             params['secret'].casecmp(player.secret) == 0)
+          session[:player_id] = player.id
           redirect to('/dashboard')
         else
           redirect to('/')
