@@ -25,6 +25,10 @@ module Assassins
       DataMapper.auto_upgrade!
     end
 
+    configure :development do
+      set :slim, :pretty => true
+    end
+
     get '/' do
       slim :index
     end
