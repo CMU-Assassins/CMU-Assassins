@@ -1,6 +1,5 @@
 - if defined?(errors)
     .alert.alert-error
-        button.close type='button' data-dismiss='close' &times;
         ul
             - errors.full_messages.each do |message|
                 li
