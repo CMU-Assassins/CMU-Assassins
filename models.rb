@@ -35,7 +35,7 @@ module Assassins
       File.open('res/words') do |f|
         word_list = f.lines.to_a
         num_words.times do
-          secret_words << word_list.sample.capitalize
+          secret_words << word_list.sample.chomp.capitalize
         end
       end
       self.secret = secret_words.join(' ')
