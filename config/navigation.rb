@@ -11,6 +11,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :leaderboard, 'Leaderboard', url('/leaderboard'),
                  :if => Proc.new {game_started?}
     primary.item :rules, 'Rules', url('/rules')
+    primary.item :contact, 'Contact Us', url('/contact')
   end
 end
 
