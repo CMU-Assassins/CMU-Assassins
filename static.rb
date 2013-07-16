@@ -6,6 +6,10 @@ module Assassins
     get '/rules' do
       slim :rules
     end
+
+    get '/contact' do
+        slim :contact
+    end
   end
 end
 
