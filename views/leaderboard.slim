@@ -1,5 +1,5 @@
 .well
-    - players.each do |player|
+    - Assassins::Player.all.each do |player|
         .row
             .span3.offset1
                 = player.name

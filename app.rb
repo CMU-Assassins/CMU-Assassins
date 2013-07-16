@@ -33,11 +33,6 @@ module Assassins
       slim :index
     end
 
-    get '/leaderboard' do
-      players = Player.all
-      slim :leaderboard, :locals => {:players => players}
-    end
-
     get '/main.css' do
       less :main, :views => 'styles'
     end
@@ -48,6 +43,7 @@ module Assassins
   end
 end
 
+require_relative 'game.rb'
 require_relative 'user.rb'
 require_relative 'static.rb'
 
