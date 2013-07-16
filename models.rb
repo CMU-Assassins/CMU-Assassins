@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'data_mapper'
+require 'securerandom'
 
 module Assassins
   class Program
@@ -21,14 +22,39 @@ module Assassins
     include DataMapper::Resource
 
     property :id, Serial
-    property :name, String
     property :andrew_id, String, :unique => true
-    belongs_to :floor
-    property :failed_kill_attempts, Integer, :default => 0
     property :secret, String
 
+    property :name, String
+    belongs_to :floor
     belongs_to :program
+
     belongs_to :target, :model => 'Player', :required => false
+    property :failed_kill_attempts, Integer, :default => 0
+    property :is_alive, Boolean, :default => true
+    property :kills, Integer, :default => 0
+
+    property :verification_key, String
+    before :create do
+      self.verification_key = SecureRandom.uuid
+    end
+    property :is_verified, Boolean, :default => false
+
+    def send_verification (mailer, url)
+      message = {
+        :subject => 'Please verify your identity',
+        :from_name => 'CMU Assassins',
+        :text => "Secret words: #{self.secret}\n#{url}",
+        :to => [
+          {
+            :email => "#{self.andrew_id}@andrew.cmu.edu",
+            :name => self.name
+          }
+        ],
+        :from_email => 'donotreply@cmu-assassins.tk'
+      }
+      $stderr.puts mailer.messages.send(message)
+    end
 
     def generate_secret! (num_words)
       secret_words = []
@@ -39,6 +65,10 @@ module Assassins
         end
       end
       self.secret = secret_words.join(' ')
+    end
+
+    def active?
+      self.is_verified && self.is_alive
     end
   end
 end

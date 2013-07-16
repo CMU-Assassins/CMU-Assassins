@@ -68,15 +68,19 @@ GEM
       data_objects (= 0.10.13)
     do_sqlite3 (0.10.13)
       data_objects (= 0.10.13)
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
     i18n (0.6.4)
-    json (1.8.0)
+    json (1.7.7)
     json_pure (1.8.0)
     less (2.3.2)
       commonjs (~> 0.2.6)
     libv8 (3.11.8.17)
+    mandrill-api (1.0.37)
+      excon (~> 0.16.0)
+      json (~> 1.7.7)
     minitest (4.7.5)
     multi_json (1.7.7)
     rack (1.5.2)
@@ -112,6 +116,7 @@ DEPENDENCIES
   dm-postgres-adapter
   dm-sqlite-adapter
   less
+  mandrill-api
   simple-navigation
   sinatra
   slim

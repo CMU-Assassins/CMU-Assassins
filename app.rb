@@ -2,6 +2,7 @@
 require 'bundler/setup'
 require 'sinatra/base'
 require 'simple-navigation'
+require 'mandrill'
 require 'data_mapper'
 require 'less'
 require 'slim'
@@ -18,6 +19,8 @@ module Assassins
 
       SimpleNavigation.set_env(root, environment)
       helpers ::SimpleNavigation::Helpers
+
+      set :mailer, Mandrill::API.new
 
       DataMapper::Logger.new($stderr, settings.development? ? :debug : :info)
       DataMapper.setup(:default, ENV['DATABASE_URL'])

@@ -23,18 +23,34 @@ module Assassins
     end
 
     post '/login' do
-      if params.has_key?('andrew_id')
-        player = Player.first(:andrew_id => params['andrew_id'])
-        if (!player.nil? && params.has_key?('secret') &&
-            params['secret'].casecmp(player.secret) == 0)
-          session[:player_id] = player.id
-          redirect to('/dashboard')
-        else
-          slim :login, :locals => {:errors => ['Incorrect Andrew ID or secret words. Please try again.']}
-        end
-      else
-        redirect to('/')
+      if !params.has_key?('andrew_id')
+        return redirect to('/')
       end
+      player = Player.first(:andrew_id => params['andrew_id'])
+
+      if (player.nil?)
+        return slim :login, :locals => {:errors =>
+          ['Invalid Andrew ID. Please try again.']}
+      end
+
+      if (!player.active?)
+        if (!player.is_verified)
+          return slim :login, :locals => {:errors =>
+            ['This account has not yet been activated. Please check your inbox for our verification email.']}
+        else
+          return slim :login, :locals => {:errors =>
+            ['You have been killed and your account made inactive. Thanks for playing!']}
+        end
+      end
+
+      if (!(params.has_key?('secret') &&
+            params['secret'].casecmp(player.secret) == 0))
+        return slim :login, :locals => {:errors =>
+          ['Incorrect secret words. Please try again.']}
+      end
+
+      session[:player_id] = player.id
+      redirect to('/dashboard')
     end
 
     get '/logout' do
@@ -53,10 +69,30 @@ module Assassins
                           :program_id => params['program'])
       player.generate_secret! 2
       if (player.save)
+        player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+        slim :signup_confirm
+      else
+        slim :signup, :locals => {:errors => player.errors.full_messages}
+      end
+    end
+
+    get '/signup/verify' do
+      if !params.has_key?('aid')
+        return redirect to('/')
+      end
+      player = Player.first(:andrew_id => params['aid'])
+
+      if (player.nil? || player.is_verified)
+        return redirect to('/')
+      end
+
+      if (params.has_key?('nonce') && params['nonce'] == player.verification_key)
+        player.is_verified = true;
+        player.save!;
         session[:player_id] = player.id
         redirect to('/dashboard')
       else
-        slim :signup, :locals => {:errors => player.errors.full_messages}
+        redirect to('/')
       end
     end
 
