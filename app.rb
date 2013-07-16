@@ -20,7 +20,9 @@ module Assassins
       SimpleNavigation.set_env(root, environment)
       helpers ::SimpleNavigation::Helpers
 
-      set :mailer, Mandrill::API.new
+      if !settings.development?
+        set :mailer, Mandrill::API.new
+      end
 
       DataMapper::Logger.new($stderr, settings.development? ? :debug : :info)
       DataMapper.setup(:default, ENV['DATABASE_URL'])

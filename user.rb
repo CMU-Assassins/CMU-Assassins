@@ -69,7 +69,9 @@ module Assassins
                           :program_id => params['program'])
       player.generate_secret! 2
       if (player.save)
-        player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+        if !settings.development?
+          player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+        end
         slim :signup_confirm
       else
         slim :signup, :locals => {:errors => player.errors.full_messages}
