@@ -38,7 +38,7 @@ module Assassins
       less :main, :views => 'styles'
     end
 
-    get '/*' do
+    not_found do
       slim :coming_soon
     end
   end
