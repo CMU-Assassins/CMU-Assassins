@@ -25,10 +25,6 @@ module Assassins
       slim :index
     end
 
-    get '/rules' do
-      slim :rules
-    end
-
     get '/leaderboard' do
       players = Player.all
       slim :leaderboard, :locals => {:players => players}
@@ -45,5 +41,6 @@ module Assassins
 end
 
 require_relative 'user.rb'
+require_relative 'static.rb'
 
 # vim:set ts=2 sw=2 et:
