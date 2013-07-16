@@ -23,8 +23,22 @@ module Assassins
     end
 
     post '/login' do
-      session[:player_id] = Player.first(:andrew_id => params['andrew_id']).id
-      redirect to('/dashboard')
+      if params.has_key?('andrew_id')
+        player = Player.first(:andrew_id => params['andrew_id'])
+        if (!player.nil? && params.has_key?('secret') &&
+            params['secret'].casecmp(player.secret) == 0)
+          redirect to('/dashboard')
+        else
+          redirect to('/')
+        end
+      else
+        redirect to('/')
+      end
+    end
+
+    get '/logout' do
+      session.delete :player_id
+      redirect to('/')
     end
 
     get '/signup' do
