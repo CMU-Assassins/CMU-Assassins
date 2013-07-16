@@ -40,7 +40,7 @@ html
                   a href="dashboard" Dashboard
 
             - if logged_in?
-              a.btn href='logout' Log Out
+              a.btn.pull-right href='logout' Log Out
             - else
               form.navbar-form.pull-right(action='/login' method='post')
                 .input-prepend.fix-padding
