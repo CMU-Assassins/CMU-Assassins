@@ -22,6 +22,8 @@ module Assassins
 
       if !settings.development?
         set :mailer, Mandrill::API.new
+      else
+        set :mailer, nil
       end
 
       DataMapper::Logger.new($stderr, settings.development? ? :debug : :info)

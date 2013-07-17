@@ -1,0 +1,10 @@
+form.form-horizontal(action=url('/signup/resend_verification') method='post')
+    fieldset
+        legend Resend Verification Email
+        .control-group
+            label.control-label for='andrew_id' Andrew ID
+            .controls
+                input.input-block-level#andrew_id[name='andrew_id' type='text' required placeholder='acarnegie']
+        .control-group
+            .controls
+                button.btn.btn-primary type='submit' Resend Verification

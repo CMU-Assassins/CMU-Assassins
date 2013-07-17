@@ -53,7 +53,11 @@ module Assassins
         ],
         :from_email => 'donotreply@cmu-assassins.tk'
       }
-      $stderr.puts mailer.messages.send(message)
+      if !mailer.nil?
+        $stderr.puts mailer.messages.send(message)
+      else
+        $stderr.puts "Sending verification for #{self.andrew_id}"
+      end
     end
 
     def generate_secret! (num_words)

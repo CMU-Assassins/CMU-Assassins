@@ -35,8 +35,7 @@ module Assassins
 
       if (!player.active?)
         if (!player.is_verified)
-          return slim :login, :locals => {:errors =>
-            ['This account has not yet been activated. Please check your inbox for our verification email.']}
+          return slim :resend_verification
         else
           return slim :login, :locals => {:errors =>
             ['You have been killed and your account made inactive. Thanks for playing!']}
@@ -69,12 +68,26 @@ module Assassins
                           :program_id => params['program'])
       player.generate_secret! 2
       if (player.save)
-        if !settings.development?
-          player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
-        end
+        player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
         slim :signup_confirm
       else
         slim :signup, :locals => {:errors => player.errors.full_messages}
+      end
+    end
+
+    post '/signup/resend_verification' do
+      if !params.has_key?('andrew_id')
+        return redirect to('/')
+      end
+      player = Player.first(:andrew_id => params['andrew_id'])
+
+      if (!player.nil? && !player.is_verified)
+        player.verification_key = SecureRandom.uuid
+        player.save!
+        player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+        slim :signup_confirm
+      else
+        redirect to('/')
       end
     end
 
