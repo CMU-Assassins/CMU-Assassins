@@ -65,6 +65,7 @@ module Assassins
         $stderr.puts mailer.messages.send(message)
       else
         $stderr.puts "Sending verification for #{self.andrew_id}"
+        $stderr.puts "Message body: #{message[:text]}"
       end
     end
 
