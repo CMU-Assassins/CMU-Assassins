@@ -84,6 +84,14 @@ module Assassins
       self.is_verified && self.is_alive
     end
   end
+
+  class Admin
+    include DataMapper::Resource
+
+    property :id, Serial
+    property :username, String, :unique => true
+    property :password, BCryptHash, :required => true
+  end
 end
 
 # vim:set ts=2 sw=2 et:
