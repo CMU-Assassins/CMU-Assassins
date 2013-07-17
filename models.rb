@@ -3,6 +3,12 @@ require 'data_mapper'
 require 'securerandom'
 
 module Assassins
+  class App < Sinatra::Base
+    configure do
+      DataMapper::Property.required(true)
+    end
+  end
+
   class Program
     include DataMapper::Resource
 
@@ -34,10 +40,8 @@ module Assassins
     property :is_alive, Boolean, :default => true
     property :kills, Integer, :default => 0
 
-    property :verification_key, String
-    before :create do
-      self.verification_key = SecureRandom.uuid
-    end
+    property :verification_key, String,
+             :default => lambda {|r,p| SecureRandom.uuid}
     property :is_verified, Boolean, :default => false
 
     def send_verification (mailer, url)
