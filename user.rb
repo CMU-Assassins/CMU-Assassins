@@ -78,15 +78,20 @@ module Assassins
 
     post '/signup/resend_verification' do
       player = Player.first(:andrew_id => params['andrew_id'])
-
-      if (!player.nil? && !player.is_verified)
-        player.verification_key = SecureRandom.uuid
-        player.save!
-        player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
-        slim :signup_confirm
-      else
-        redirect to('/')
+      if (player.nil?)
+        return slim :resend_verification, :locals => {:errors =>
+          ['Invalid Andrew ID']}
       end
+
+      if (player.is_verified)
+        return slim :resend_verification, :locals => {:errors =>
+          ['That account has already been verified. You can log in using the form above.']}
+      end
+
+      player.verification_key = SecureRandom.uuid
+      player.save!
+      player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+      slim :signup_confirm
     end
 
     get '/signup/verify' do
