@@ -23,9 +23,6 @@ module Assassins
     end
 
     post '/login' do
-      if !params.has_key?('andrew_id')
-        return redirect to('/')
-      end
       player = Player.first(:andrew_id => params['andrew_id'])
 
       if (player.nil?)
@@ -43,7 +40,7 @@ module Assassins
       end
 
       if (!(params.has_key?('secret') &&
-            params['secret'].casecmp(player.secret) == 0))
+            player.secret.casecmp(params['secret']) == 0))
         return slim :login, :locals => {:errors =>
           ['Incorrect secret words. Please try again.']}
       end
