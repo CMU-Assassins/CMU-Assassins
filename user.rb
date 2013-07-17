@@ -77,9 +77,6 @@ module Assassins
     end
 
     post '/signup/resend_verification' do
-      if !params.has_key?('andrew_id')
-        return redirect to('/')
-      end
       player = Player.first(:andrew_id => params['andrew_id'])
 
       if (!player.nil? && !player.is_verified)
@@ -93,9 +90,6 @@ module Assassins
     end
 
     get '/signup/verify' do
-      if !params.has_key?('aid')
-        return redirect to('/')
-      end
       player = Player.first(:andrew_id => params['aid'])
 
       if (player.nil? || player.is_verified)
