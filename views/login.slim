@@ -1,14 +1,14 @@
 form.form-horizontal(action=url('/login') method='post')
-    fieldset
-        legend Log In
-        .control-group
-            label.control-label for='andrew_id' Andrew ID
-            .controls
-                input.input-block-level#andrew_id[name='andrew_id' type='text' required placeholder='acarnegie']
-        .control-group
-            label.control-label for='secret' Secret Words
-            .controls
-                input.input-block-level#secret[name='secret' type='password' required]
-        .control-group
-            .controls
-                button.btn.btn-primary type='submit' Log In
+  fieldset
+    legend Log In
+    .control-group
+      label.control-label for='andrew_id' Andrew ID
+      .controls
+        input.input-block-level#andrew_id[name='andrew_id' type='text' required placeholder='acarnegie']
+    .control-group
+      label.control-label for='secret' Secret Words
+      .controls
+        input.input-block-level#secret[name='secret' type='password' required]
+    .control-group
+      .controls
+        button.btn.btn-primary type='submit' Log In

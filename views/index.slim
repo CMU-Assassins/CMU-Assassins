@@ -1,23 +1,23 @@
 .row
-    .span12
-        .alert.alert-error
-            | Shortly after launch, there was an issue which prevented verification emails from being sent. If you did not receive your email, please enter your Andrew ID on <a href="#{url('/signup/resend_verification')}">this page</a> to have it resent.
-        .alert.alert-info
-            strong Attention Three-Week Students:
-            |  The game will be starting on July 21st, 2013, so unfortunately you will not be able to participate. We apologize and hope you have a fun summer.
+  .span12
+    .alert.alert-error
+      | Shortly after launch, there was an issue which prevented verification emails from being sent. If you did not receive your email, please enter your Andrew ID on <a href="#{url('/signup/resend_verification')}">this page</a> to have it resent.
+    .alert.alert-info
+      strong Attention Three-Week Students:
+      |  The game will be starting on July 21st, 2013, so unfortunately you will not be able to participate. We apologize and hope you have a fun summer.
 .row
-    - unless logged_in?
-        .span6
-            img src='logo.png'
-            img.hidden-phone src='skull.png' alt="You won't see it coming"
-        .span6
-            == slim :signup, :locals => {:programs => {}}, :layout => false
-    - else
-        .span6
-            img src='logo.png'
-        .span6
-            img src='skull.png' alt="You won't see it coming"        
+  - unless logged_in?
+    .span6
+      img src='logo.png'
+      img.hidden-phone src='skull.png' alt="You won't see it coming"
+    .span6
+      == slim :signup, :locals => {:programs => {}}, :layout => false
+  - else
+    .span6
+      img src='logo.png'
+    .span6
+      img src='skull.png' alt="You won't see it coming"
 
 .row
-    .span12
-        == slim :rules, :layout => false
+  .span12
+    == slim :rules, :layout => false

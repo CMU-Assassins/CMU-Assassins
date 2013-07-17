@@ -1,13 +1,13 @@
 .well
-    table.table.table-hover
-        thead
-            tr
-                th Kills
-                th Player Name
-                th Program
-        tbody
-            - Assassins::Player.all.each do |player|
-                tr
-                    td -1
-                    td = player.name
-                    td = player.program.title
+  table.table.table-hover
+    thead
+      tr
+        th Kills
+        th Player Name
+        th Program
+    tbody
+      - Assassins::Player.all.each do |player|
+        tr
+          td -1
+          td = player.name
+          td = player.program.title
