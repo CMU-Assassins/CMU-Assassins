@@ -69,11 +69,6 @@ module Assassins
         return redirect to('/')
       end
 
-      if (params['password'].nil? || params['password'].empty?)
-        return slim :admin_create, :locals => {:errors =>
-          ['Please provide a password']}
-      end
-
       if params['password'] != params['password_confirm']
         return slim :admin_create, :locals => {:errors =>
           ["Passwords don't match"]}
@@ -85,7 +80,7 @@ module Assassins
         session[:admin_id] = admin.id
         redirect to('/admin/dashboard')
       else
-        slim :admin_create, :locals => {:errors => admin.errors}
+        slim :admin_create, :locals => {:errors => admin.errors.full_messages}
       end
     end
   end
