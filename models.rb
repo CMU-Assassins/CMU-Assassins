@@ -28,7 +28,11 @@ module Assassins
     include DataMapper::Resource
 
     property :id, Serial
-    property :andrew_id, String, :unique => true
+    property :andrew_id, String, :unique => true,
+      :messages => {
+        :presence  => 'Andrew ID must not be blank',
+        :is_unique => 'Andrew ID is already taken'
+      }
     property :secret, String
 
     property :name, String
