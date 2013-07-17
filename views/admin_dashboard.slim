@@ -1,1 +1,8 @@
-h1 Work in progress
+p
+  a href=url('/admin/logout') Logout
+p
+  | Registered users: 
+  = Assassins::Player.count
+p
+  | Active users:
+  = Assassins::Player.count(:is_verified => true)
