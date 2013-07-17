@@ -15,6 +15,10 @@ module Assassins
     configure do
       enable :method_override
       enable :logging
+
+      if ENV.has_key?('SINATRA_SESSION_SECRET')
+        set :session_secret, ENV['SINATRA_SESSION_SECRET']
+      end
       enable :sessions
 
       SimpleNavigation.set_env(root, environment)
