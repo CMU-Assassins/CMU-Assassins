@@ -35,7 +35,7 @@ module Assassins
 
       if (!player.active?)
         if (!player.is_verified)
-          return slim :resend_verification
+          return redirect to('/signup/resend_verification')
         else
           return slim :login, :locals => {:errors =>
             ['You have been killed and your account made inactive. Thanks for playing!']}
@@ -73,6 +73,10 @@ module Assassins
       else
         slim :signup, :locals => {:errors => player.errors.full_messages}
       end
+    end
+
+    get '/signup/resend_verification' do
+      slim :resend_verification
     end
 
     post '/signup/resend_verification' do
