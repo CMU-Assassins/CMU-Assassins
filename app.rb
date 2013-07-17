@@ -56,6 +56,7 @@ end
 
 require_relative 'game.rb'
 require_relative 'user.rb'
+require_relative 'admin.rb'
 require_relative 'static.rb'
 
 # vim:set ts=2 sw=2 et:
