@@ -40,6 +40,14 @@ module Assassins
       set :slim, :pretty => true
     end
 
+    helpers do
+      def title
+        title = active_navigation_item_name
+        title = "Make your mark" if title.empty?
+        title
+      end
+    end
+
     get '/' do
       slim :index
     end
