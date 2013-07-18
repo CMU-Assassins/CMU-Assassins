@@ -20,7 +20,7 @@ module Assassins
 
     get '/admin/dashboard' do
       if admin?
-        slim :admin_dashboard
+        slim :'admin/dashboard'
       else
         redirect to('/admin')
       end
@@ -30,7 +30,7 @@ module Assassins
       if Admin.count == 0
         redirect to('/admin/create')
       else
-        slim :admin_login
+        slim :'admin/login'
       end
     end
 
@@ -38,12 +38,12 @@ module Assassins
       user = Admin.first(:username => params['username'])
 
       if (user.nil?)
-        return slim :admin_login, :locals => {:errors =>
+        return slim :'admin/login', :locals => {:errors =>
           ['Invalid username. Please try again.']}
       end
 
       if (user.password != params['password'])
-        return slim :admin_login, :locals => {:errors =>
+        return slim :'admin/login', :locals => {:errors =>
           ['Incorrect password. Please try again.']}
       end
 
@@ -58,7 +58,7 @@ module Assassins
 
     get '/admin/create' do
       if Admin.count == 0 || admin?
-        slim :admin_create
+        slim :'admin/create'
       else
         redirect to('/admin')
       end
@@ -70,7 +70,7 @@ module Assassins
       end
 
       if params['password'] != params['password_confirm']
-        return slim :admin_create, :locals => {:errors =>
+        return slim :'admin/create', :locals => {:errors =>
           ["Passwords don't match"]}
       end
 
@@ -80,7 +80,7 @@ module Assassins
         session[:admin_id] = admin.id
         redirect to('/admin/dashboard')
       else
-        slim :admin_create, :locals => {:errors => admin.errors.full_messages}
+        slim :'admin/create', :locals => {:errors => admin.errors.full_messages}
       end
     end
   end
