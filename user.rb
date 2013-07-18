@@ -59,6 +59,11 @@ module Assassins
     end
 
     post '/signup' do
+      if (params.has_key?('andrew_id') && params['andrew_id'].index('@'))
+        return slim :signup, :locals => {:errors =>
+          ['Please enter only your Andrew ID, not your full email address.']};
+      end
+
       player = Player.new(:name => params['name'],
                           :andrew_id => params['andrew_id'],
                           :floor_id => params['floor'],
