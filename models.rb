@@ -90,7 +90,7 @@ module Assassins
 
     property :id, Serial
     property :username, String, :unique => true
-    property :password, BCryptHash, :required => true
+    property :password, BCryptHash
   end
 end
 
