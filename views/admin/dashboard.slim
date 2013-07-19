@@ -1,8 +1,19 @@
-p
-  a href=url('/admin/logout') Logout
-p
-  | Registered users: 
-  = Assassins::Player.count
-p
-  | Active users: 
-  = Assassins::Player.count(:is_verified => true)
+link href='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/css/bootstrap-editable.css' rel='stylesheet'
+
+script src='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/js/bootstrap-editable.min.js'
+
+
+
+
+.row
+  .offset3.span6
+    .well.text-center
+      .row
+        a.pull-right.btn.btn-primary href=url('/admin/logout') Admin Logout
+      .row
+        #registered
+          | Registered users: 
+          strong = Assassins::Player.count
+        #active
+          | Active users: 
+          strong = Assassins::Player.count(:is_verified => true)
