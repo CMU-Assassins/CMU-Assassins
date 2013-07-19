@@ -56,6 +56,13 @@ html
     script src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'
     script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
     script src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js'
+    - if (defined?(render_admin) and render_admin)
+      link href='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/css/bootstrap-editable.css' rel='stylesheet'
+      script src='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/js/bootstrap-editable.min.js'
+      coffee:
+        $ ->
+          $.fn.editable.defaults.mode = 'inline'
+          $("#startdate").editable()
 
     javascript:
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

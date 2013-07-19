@@ -10,3 +10,5 @@
         #active
           | Active users: 
           strong = Assassins::Player.count(:is_verified => true)
+        #xeditable
+          a#startdate data-type='date' data-pk='1' data-url=url('admin/starttime') data-format='mm/dd/yy' 12/12/12

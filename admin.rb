@@ -20,7 +20,7 @@ module Assassins
 
     get '/admin/dashboard' do
       if admin?
-        slim :'admin/dashboard'
+        slim :'admin/dashboard', :locals => {:render_admin => true}
       else
         redirect to('/admin')
       end
