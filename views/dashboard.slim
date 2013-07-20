@@ -5,4 +5,10 @@
       #secret
         | Your secret words are 
         .label.label-success #{user.secret}
-      #target Targets will be assigned on July 22nd, 2013!
+      #target
+        | Your target is:
+        .well
+          h5#name Andrew Carnegie
+          #floor Morewood Gardens 2nd Floor - A tower
+          #program AP/EA
+        a.editable data-placement='bottom' data-pk='a' data-url=url('/confirm_kill') data-value="" Confirm your kill
