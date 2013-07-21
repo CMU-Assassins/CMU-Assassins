@@ -4,18 +4,18 @@ require 'slim'
 
 module Assassins
   class App < Sinatra::Base
-    helpers do
-      def logged_in?
-        session.has_key? :player_id
-      end
-
-      def user
-        if session.has_key? :player_id
-          Player.get session[:player_id]
-        else
-          nil
+    before do
+      @player = nil
+      if session.has_key? :player_id
+        @player = Player.get session[:player_id]
+        if @player.nil?
+          session.delete :player_id
         end
       end
+    end
+
+    set(:logged_in) do |val|
+      condition {!@player.nil? == val}
     end
 
     get '/login' do
@@ -35,7 +35,7 @@ module Assassins
           return redirect to('/signup/resend_verification')
         else
           return slim :login, :locals => {:errors =>
-            ['You have been killed and your account made inactive. Thanks for playing!']}
+            ['You have been assassinated and your account made inactive. Thanks for playing!']}
         end
       end
 
@@ -116,12 +116,24 @@ module Assassins
       end
     end
 
-    get '/dashboard' do
-      if !user.nil?
-        slim :dashboard
+    get '/dashboard', :logged_in => true do
+      slim :dashboard
+    end
+
+    post '/dashboard/assassinate', :logged_in => true do
+      target = @player.target
+      if (params.has_key?('target_secret') &&
+          target.secret.casecmp(params['target_secret']) == 0)
+        @player.set_target_notify(target.target)
+        redirect to('/dashboard')
       else
-        redirect to('/login')
+        slim :dashboard, :locals => {:errors =>
+          ["That isn't your target's secret. Please try again."]}
       end
+    end
+
+    get /^\/dashboard(\/.*)?$/, :logged_in => false do
+      redirect to('/login')
     end
  end
 end

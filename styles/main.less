@@ -1,15 +1,33 @@
 @media (min-width: 980px) {
   body {
-    padding-top: 60px;
-    padding-bottom: 42px;
+  padding-top: 60px;
+  padding-bottom: 42px;
   }
 }
 
 .fix-padding {
-    margin: 10px !important;
+  margin: 10px !important;
 }
 
 .vertical-align {
-    display: inline-block !important;
-    vertical-align: middle;
+  display: inline-block !important;
+  vertical-align: middle;
+}
+
+.userselect(@value) {
+  -webkit-touch-callout: @value;
+  -webkit-user-select: @value;
+  -khtml-user-select: @value;
+  -moz-user-select: @value;
+  -ms-user-select: @value;
+  user-select: @value;
+}
+
+.noselect {
+  .userselect(none);
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }

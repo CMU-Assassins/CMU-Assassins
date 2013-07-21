@@ -6,7 +6,9 @@
       strong Attention Three-Week Students:
       |  The game will be starting on July 22nd, 2013, so unfortunately you will not be able to participate. We apologize and hope you have a fun summer.
 .row
-  - unless logged_in?
+  .center#count-down
+.row
+  - if @player.nil?
     .span6
       img src='logo.png'
       img.hidden-phone src='skull.png' alt="You won't see it coming"

@@ -1,8 +1,38 @@
 .row
-  .offset3.span6
-    .well.text-center
-      h4 Hello, #{user.name.split(' ').first}!
-      #secret
-        | Your secret words are 
-        .label.label-success #{user.secret}
-      #target Targets will be assigned on July 22nd, 2013!
+  .offset1.span5.text-center
+    h3 Your information
+    .well
+      h4 = @player.name
+      h5.user-info
+        .floor 
+          strong Floor: 
+          = @player.floor.description
+        .program
+          strong Program: 
+          = @player.program.title
+        .secret
+          strong Secret Words: 
+          .label.label-success = @player.secret
+  .span5.text-center
+    h3 Your target's information
+    .well
+      - if game_started? and not @player.target.nil?
+        h4 = @player.target.name
+        h5.user-info
+          .floor 
+            strong Floor: 
+            = @player.target.floor.description
+          .program
+            strong Program: 
+            = @player.target.program.title
+          .confirm
+          form action=url('/dashboard/assassinate') method='post'
+            fieldset
+              label Enter your target's secret word to confirm your assassination
+              .input-append
+                input.input-medium#target_words name='target_secret' type='text' placeholder='Tomato Sneaker' required=true
+                button.btn.btn-primary type='submit' Confirm
+
+
+      - else
+        h3 Your target will be assigned on July 22, 2013!

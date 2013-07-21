@@ -52,7 +52,7 @@ module Assassins
       slim :index
     end
 
-    get '/main.css' do
+    get '/css/main.css' do
       less :main, :views => 'styles'
     end
 

@@ -1,18 +1,18 @@
-form.form-horizontal[action=url('/admin/create') method='post']
+form.form-horizontal action=url('/admin/create') method='post'
   fieldset
     legend Create admin account
     .control-group
       label.control-label for='username' Username
       .controls
-        input.input-block-level#username[name='username' type='text' required]
+        input.input-block-level#username name='username' type='text' required=true
     .control-group
       label.control-label for='password' Password
       .controls
-        input.input-block-level#password[name='password' type='password' required]
+        input.input-block-level#password name='password' type='password' required=true
     .control-group
       label.control-label for='password_confirm' Confirm password
       .controls
-        input.input-block-level#password_confirm[name='password_confirm' type='password' required]
+        input.input-block-level#password_confirm name='password_confirm' type='password' required=true
     .control-group
       .controls
         button.btn.btn-primary type='submit' Create
