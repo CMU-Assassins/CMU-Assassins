@@ -2,29 +2,29 @@
   .offset1.span5.text-center
     h3 Your information
     .well
-      h4 = user.name
+      h4 = @player.name
       h5.user-info
         .floor 
           strong Floor: 
-          = user.floor.description
+          = @player.floor.description
         .program
           strong Program: 
-          = user.program.title
+          = @player.program.title
         .secret
           strong Secret Words: 
-          .label.label-success = user.secret
+          .label.label-success = @player.secret
   .span5.text-center
     h3 Your target's information
     .well
-      - if game_started? and not user.target.nil?
-        h4 = user.target.name
+      - if game_started? and not @player.target.nil?
+        h4 = @player.target.name
         h5.user-info
           .floor 
             strong Floor: 
-            = user.target.floor.description
+            = @player.target.floor.description
           .program
             strong Program: 
-            = user.target.program.title
+            = @player.target.program.title
           .confirm
           form action=url('/dashboard/assassinate') method='post'
             fieldset

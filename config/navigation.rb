@@ -1,5 +1,5 @@
 SimpleNavigation::Configuration.run do |navigation|
-  logged_in_check = lambda {!user.nil?}
+  logged_in_check = lambda {!@player.nil?}
 
   navigation.items do |primary|
     primary.dom_class = 'nav'

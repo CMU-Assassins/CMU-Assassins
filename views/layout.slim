@@ -32,7 +32,7 @@ html
 
           .nav-collapse.collapse
             == render_navigation
-            - unless user.nil?
+            - unless @player.nil?
               a.btn.pull-right href=url('/logout') Log Out
             - else
               form.navbar-form.pull-right(action=url('/login') method='post')
