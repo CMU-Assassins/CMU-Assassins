@@ -5,10 +5,12 @@
       #secret
         | Your secret words are 
         .label.label-success #{user.secret}
-      #target
-        | Your target is:
-        .well
-          h5#name Andrew Carnegie
-          #floor Morewood Gardens 2nd Floor - A tower
-          #program AP/EA
-        a.editable data-placement='bottom' data-pk='a' data-url=url('/confirm_kill') data-value="" Confirm your kill
+      - if game_started? and not user.target.nil?
+        #target
+          | Your target is:
+          .well
+            h5#name =user.target.name
+            #floor =user.target.floor.description
+            #program =user.target.program.title
+
+          a.editable data-placement='bottom' data-pk='a' data-url=url('/confirm_kill') data-value="" Confirm your kill
