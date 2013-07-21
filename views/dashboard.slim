@@ -1,16 +1,39 @@
 .row
-  .offset3.span6
-    .well.text-center
+  .offset1.span5.text-center
+    h3 Your information
+    .well
       h4 Hello, #{user.name.split(' ').first}!
-      #secret
-        | Your secret words are 
-        .label.label-success #{user.secret}
+      h5.user-info
+        .secret
+          strong Secret Words: 
+          .label.label-success = user.secret
+        .floor 
+          strong Floor: 
+          = user.floor.description
+        .program
+          strong Program: 
+          = user.program.title
       - if game_started? and not user.target.nil?
-        #target
-          | Your target is:
-          .well
-            h5#name =user.target.name
-            #floor =user.target.floor.description
-            #program =user.target.program.title
+        .confirm
+          form action=url('/dashboard/assassinate') method='post'
+            fieldset
+              label Enter your target's secret word to confirm your kill
+              .input-append
+                input.input-medium#target_words name='target_words' type='text' placeholder='Tomato Sneaker' required=true
+                button.btn.btn-primary type='submit' value='hi' Confirm
+  .span5.text-center
+    h3 Your target's information
+    .well
+      - if game_started? and not user.target.nil?
+        h4 You're after #{user.target.name}
+        h5.user-info
+          .floor 
+            strong Floor: 
+            = user.target.floor.description
+          .program
+            strong Program: 
+            = user.target.program.title
 
-          a.editable data-placement='bottom' data-pk='a' data-url=url('/confirm_kill') data-value="" Confirm your kill
+
+      - else
+        h3 Target's will be assigned July 22!
