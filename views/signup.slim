@@ -1,18 +1,18 @@
-form.form-horizontal[action=url('/signup') method='post']
+form.form-horizontal action=url('/signup') method='post'
   fieldset
     legend Sign Up
     .control-group
       label.control-label for='name' Full Name
       .controls
-        input.input-block-level#name[name='name' type='text' required placeholder='Andrew Carnegie']
+        input.input-block-level#name name='name' type='text' placeholder='Andrew Carnegie' required=true
     .control-group
       label.control-label for='andrew_id' Andrew ID
       .controls
-        input.input-block-level#andrew_id[name='andrew_id' type='text' required placeholder='acarnegie']
+        input.input-block-level#andrew_id name='andrew_id' type='text' placeholder='acarnegie' required=true
     .control-group
       label.control-label for='floor' Floor/Tower
       .controls
-        select.input-block-level[name='floor']
+        select.input-block-level name='floor'
           - Assassins::Floor.all.each do |floor|
             option value=floor.id #{floor.description}
     .control-group
