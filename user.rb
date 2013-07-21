@@ -124,7 +124,7 @@ module Assassins
       target = @player.target
       if (params.has_key?('target_secret') &&
           target.secret.casecmp(params['target_secret']) == 0)
-        @player.set_target_notify(target.target)
+        @player.set_target_notify(settings.mailer, target.target)
         redirect to('/dashboard')
       else
         slim :dashboard, :locals => {:errors =>

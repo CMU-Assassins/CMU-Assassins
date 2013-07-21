@@ -48,10 +48,12 @@ module Assassins
              :default => lambda {|r,p| SecureRandom.uuid}
     property :is_verified, Boolean, :default => false
 
-    def set_target_notify (target)
+    def set_target_notify (mailer, target)
       self.target = target
       self.save!
-      # TODO: Send notification email.
+      send_email(mailer,
+                 'You have a new target!',
+                 "Name: #{target.name}\nFloor: #{target.floor.description}\nProgram: #{target.program.title}")
     end
 
     def send_verification (mailer, url)
