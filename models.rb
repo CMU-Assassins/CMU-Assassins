@@ -48,6 +48,12 @@ module Assassins
              :default => lambda {|r,p| SecureRandom.uuid}
     property :is_verified, Boolean, :default => false
 
+    def set_target_notify (target)
+      self.target = target
+      self.save!
+      # TODO: Send notification email.
+    end
+
     def send_verification (mailer, url)
       message = {
         :subject => 'Please verify your identity',

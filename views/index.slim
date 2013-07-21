@@ -8,7 +8,7 @@
 .row
   .center#count-down
 .row
-  - unless logged_in?
+  - if user.nil?
     .span6
       img src='logo.png'
       img.hidden-phone src='skull.png' alt="You won't see it coming"

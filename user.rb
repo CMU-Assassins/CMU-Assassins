@@ -5,10 +5,6 @@ require 'slim'
 module Assassins
   class App < Sinatra::Base
     helpers do
-      def logged_in?
-        session.has_key? :player_id
-      end
-
       def user
         if session.has_key? :player_id
           Player.get session[:player_id]
@@ -16,6 +12,10 @@ module Assassins
           nil
         end
       end
+    end
+
+    set(:logged_in) do |val|
+      condition {!user.nil? == val}
     end
 
     get '/login' do
@@ -116,12 +116,26 @@ module Assassins
       end
     end
 
-    get '/dashboard' do
-      if !user.nil?
-        slim :dashboard
+    get '/dashboard', :logged_in => true do
+      slim :dashboard
+    end
+
+    post '/dashboard/assassinate', :logged_in => true do
+      player = user
+      target = user.target
+      if (params.has_key?('target_secret') &&
+          target.secret.casecmp(params['target_secret']) == 0)
+        $stderr.print(player.target.target)
+        player.set_target_notify(target.target)
+        redirect to('/dashboard')
       else
-        redirect to('/login')
+        slim :dashboard, :locals => {:errors =>
+          ["That isn't your target's secret. Please try again."]}
       end
+    end
+
+    get /^\/dashboard(\/.*)?$/, :logged_in => false do
+      redirect to('/login')
     end
  end
 end
