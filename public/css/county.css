@@ -1,8 +1,4 @@
-﻿body, html
-{
-    font-size: 12px;
-}
-.county-reflection
+﻿.county-reflection
 {
     -moz-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
@@ -65,10 +61,6 @@
     background-color: transparent !important;
 }
 
-.clear
-{
-    clear: both;
-}
 /*color schemes*/
 /*black*/
 .county.black .county-days-wrapper, .county.black .county-hours-wrapper, .county.black .county-minutes-wrapper, .county.black .county-seconds-wrapper
