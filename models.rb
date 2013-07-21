@@ -55,24 +55,9 @@ module Assassins
     end
 
     def send_verification (mailer, url)
-      message = {
-        :subject => 'Please verify your identity',
-        :from_name => 'CMU Assassins',
-        :text => "Secret words: #{self.secret}\n#{url}",
-        :to => [
-          {
-            :email => self.email,
-            :name => self.name
-          }
-        ],
-        :from_email => 'donotreply@cmu-assassins.tk'
-      }
-      if !mailer.nil?
-        $stderr.puts mailer.messages.send(message)
-      else
-        $stderr.puts "Sending verification for #{self.andrew_id}"
-        $stderr.puts "Message body: #{message[:text]}"
-      end
+      send_email(mailer,
+                 'Please verify your identity',
+                 "Secret words: #{self.secret}\n#{url}")
     end
 
     def generate_secret! (num_words)
@@ -92,6 +77,29 @@ module Assassins
 
     def email
       "#{self.andrew_id}@andrew.cmu.edu"
+    end
+
+    private
+    def send_email (mailer, subject, message)
+      message = {
+        :subject => subject,
+        :from_name => 'CMU Assassins',
+        :text => message,
+        :to => [
+          {
+            :email => self.email,
+            :name => self.name
+          }
+        ],
+        :from_email => 'donotreply@cmu-assassins.tk'
+      }
+      if !mailer.nil?
+        $stderr.puts mailer.messages.send(message)
+      else
+        $stderr.puts "Sending email to #{self.email}"
+        $stderr.puts "Subject \"#{subject}\""
+        $stderr.puts "Message body:\n#{message[:text]}"
+      end
     end
   end
 
