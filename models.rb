@@ -55,7 +55,7 @@ module Assassins
         :text => "Secret words: #{self.secret}\n#{url}",
         :to => [
           {
-            :email => "#{self.andrew_id}@andrew.cmu.edu",
+            :email => self.email,
             :name => self.name
           }
         ],
@@ -82,6 +82,10 @@ module Assassins
 
     def active?
       self.is_verified && self.is_alive
+    end
+
+    def email
+      "#{self.andrew_id}@andrew.cmu.edu"
     end
   end
 
