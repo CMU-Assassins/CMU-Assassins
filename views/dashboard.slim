@@ -2,30 +2,22 @@
   .offset1.span5.text-center
     h3 Your information
     .well
-      h4 Hello, #{user.name.split(' ').first}!
+      h4 = user.name
       h5.user-info
-        .secret
-          strong Secret Words: 
-          .label.label-success = user.secret
         .floor 
           strong Floor: 
           = user.floor.description
         .program
           strong Program: 
           = user.program.title
-      - if game_started? and not user.target.nil?
-        .confirm
-          form action=url('/dashboard/assassinate') method='post'
-            fieldset
-              label Enter your target's secret word to confirm your kill
-              .input-append
-                input.input-medium#target_words name='target_words' type='text' placeholder='Tomato Sneaker' required=true
-                button.btn.btn-primary type='submit' value='hi' Confirm
+        .secret
+          strong Secret Words: 
+          .label.label-success = user.secret
   .span5.text-center
     h3 Your target's information
     .well
       - if game_started? and not user.target.nil?
-        h4 You're after #{user.target.name}
+        h4 = user.target.name
         h5.user-info
           .floor 
             strong Floor: 
@@ -33,6 +25,13 @@
           .program
             strong Program: 
             = user.target.program.title
+          .confirm
+          form action=url('/dashboard/assassinate') method='post'
+            fieldset
+              label Enter your target's secret word to confirm your assassination
+              .input-append
+                input.input-medium#target_words name='target_words' type='text' placeholder='Tomato Sneaker' required=true
+                button.btn.btn-primary type='submit' value='hi' Confirm
 
 
       - else

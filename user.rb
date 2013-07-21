@@ -35,7 +35,7 @@ module Assassins
           return redirect to('/signup/resend_verification')
         else
           return slim :login, :locals => {:errors =>
-            ['You have been killed and your account made inactive. Thanks for playing!']}
+            ['You have been assassinated and your account made inactive. Thanks for playing!']}
         end
       end
 
