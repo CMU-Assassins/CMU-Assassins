@@ -8,14 +8,14 @@ module Assassins
       @player = nil
       if session.has_key? :player_id
         @player = Player.get session[:player_id]
-        if @player.nil?
+        if @player.nil? || !@player.active?
           session.delete :player_id
         end
       end
     end
 
     set(:logged_in) do |val|
-      condition {!@player.nil? == val}
+      condition {(!@player.nil? && @player.active?) == val}
     end
 
     get '/login' do
@@ -124,6 +124,8 @@ module Assassins
       target = @player.target
       if (params.has_key?('target_secret') &&
           target.secret.casecmp(params['target_secret']) == 0)
+        target.is_alive = false
+        target.save!
         @player.set_target_notify(settings.mailer, target.target)
         redirect to('/dashboard')
       else
