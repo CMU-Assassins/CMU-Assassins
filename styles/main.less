@@ -13,4 +13,21 @@
   display: inline-block !important;
   vertical-align: middle;
 }
+
+.userselect(@value) {
+  -webkit-touch-callout: @value;
+  -webkit-user-select: @value;
+  -khtml-user-select: @value;
+  -moz-user-select: @value;
+  -ms-user-select: @value;
+  user-select: @value;
+}
+
+.noselect {
+  .userselect(none);
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
