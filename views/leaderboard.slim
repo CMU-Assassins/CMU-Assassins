@@ -7,9 +7,16 @@
             th data-defaultsort='desc' Assassinations
             th Player Name
             th Program
+            th Still Alive
         tbody
           - Assassins::Player.all(:is_verified => true).each do |player|
             tr
               td = player.kills
               td = player.name
               td = player.program.title
+              - if player.is_alive
+                td data-value="true"
+                  i.icon-check.icon-white
+              - else
+                td data-value="false"
+                  i.icon-screenshot.icon-white
