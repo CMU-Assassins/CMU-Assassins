@@ -13,7 +13,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :rules, 'Rules', url('/rules')
     primary.item :contact, 'Contact Us', url('/contact')
     primary.item :admin, 'Admin', url('/admin/dashboard'),
-                 :if => lambda {admin?}
+                 :unless => lambda {@admin.nil?}
   end
 end
 

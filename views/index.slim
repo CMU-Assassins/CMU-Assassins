@@ -5,8 +5,9 @@
     .alert.alert-info
       strong Attention Three-Week Students:
       |  The game will be starting on July 22nd, 2013, so unfortunately you will not be able to participate. We apologize and hope you have a fun summer.
-.row
-  .center#count-down
+- unless game_started?
+  .row
+    .center#count-down
 .row
   - if @player.nil?
     .span6
