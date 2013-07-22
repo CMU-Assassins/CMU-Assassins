@@ -10,3 +10,4 @@
         #active
           | Active users: 
           strong = Assassins::Player.count(:is_verified => true)
+        a.btn.btn-inverse href=url('/admin/dashboard/game_start') Start teh game!!!
