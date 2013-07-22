@@ -53,7 +53,7 @@ module Assassins
       self.target = target
       send_email(mailer,
                  'You have a new target!',
-                 "Name: #{target.name}\nFloor: #{target.floor.description}\nProgram: #{target.program.title}\n\nPlease remeber that the official rules are posted at http://www.cmu-assassins.tk/rules")
+                 "Name: #{target.name}\nFloor: #{target.floor.description}\nProgram: #{target.program.title}\n\nPlease remember that the official rules are posted at http://www.cmu-assassins.tk/rules")
     end
 
     def send_verification (mailer, url)
