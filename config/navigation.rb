@@ -5,7 +5,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.dom_class = 'nav'
     primary.selected_class = 'active'
     primary.item :signup, 'Sign Up', url('/signup'),
-                 :unless => logged_in_check
+                 :if => lambda {@player.nil? && !game_started?}
     primary.item :dashboard, 'Dashboard', url('/dashboard'),
                  :if => logged_in_check
     primary.item :leaderboard, 'Leaderboard', url('/leaderboard'),

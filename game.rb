@@ -12,6 +12,10 @@ module Assassins
       end
     end
 
+    set(:game_started) do |val|
+      condition {(game_started? == val)}
+    end
+
     helpers do
       def game_started?
         !@game.start_time.nil? && Time.now >= @game.start_time

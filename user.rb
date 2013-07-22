@@ -54,11 +54,11 @@ module Assassins
       redirect to('/')
     end
 
-    get '/signup' do
+    get '/signup', :game_started => false do
       slim :signup
     end
 
-    post '/signup' do
+    post '/signup', :game_started => false do
       if (params.has_key?('andrew_id') && params['andrew_id'].index('@'))
         return slim :signup, :locals => {:errors =>
           ['Please enter only your Andrew ID, not your full email address.']};
@@ -77,11 +77,11 @@ module Assassins
       end
     end
 
-    get '/signup/resend_verification' do
+    get '/signup/resend_verification', :game_started => false do
       slim :resend_verification
     end
 
-    post '/signup/resend_verification' do
+    post '/signup/resend_verification', :game_started => false do
       player = Player.first(:andrew_id => params['andrew_id'])
       if (player.nil?)
         return slim :resend_verification, :locals => {:errors =>
@@ -99,7 +99,7 @@ module Assassins
       slim :signup_confirm
     end
 
-    get '/signup/verify' do
+    get '/signup/verify', :game_started => false do
       player = Player.first(:andrew_id => params['aid'])
 
       if (player.nil? || player.is_verified)
