@@ -51,7 +51,6 @@ module Assassins
 
     def set_target_notify (mailer, target)
       self.target = target
-      self.save!
       send_email(mailer,
                  'You have a new target!',
                  "Name: #{target.name}\nFloor: #{target.floor.description}\nProgram: #{target.program.title}")
@@ -112,6 +111,13 @@ module Assassins
     property :id, Serial
     property :username, String, :unique => true
     property :password, BCryptHash
+  end
+
+  class Game
+    include DataMapper::Resource
+
+    property :id, Serial
+    property :start_time, DateTime, :required => false
   end
 end
 
