@@ -134,6 +134,8 @@ module Assassins
         @player.last_activity = Time.now
         @player.set_target_notify(settings.mailer, target.target)
         @player.save!
+        target.send_email(settings.mailer, 'You were assassinated',
+                          "You have been assassinated by #{@player.name}. Thanks for playing!")
         redirect to('/dashboard')
       else
         @player.failed_kill_attempts += 1

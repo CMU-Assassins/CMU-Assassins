@@ -81,7 +81,6 @@ module Assassins
       "#{self.andrew_id}@andrew.cmu.edu"
     end
 
-    private
     def send_email (mailer, subject, message)
       message = {
         :subject => subject,
