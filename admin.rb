@@ -7,7 +7,7 @@ module Assassins
     before do
       @admin = nil
       if session.has_key? :admin_id
-        @admin = Player.get session[:admin_id]
+        @admin = Admin.get session[:admin_id]
         if @admin.nil?
           session.delete :admin_id
         end
