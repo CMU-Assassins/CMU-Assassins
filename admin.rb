@@ -87,6 +87,23 @@ module Assassins
     get '/admin/dashboard', :is_admin => true do
       slim :'admin/dashboard'
     end
+
+    post '/admin/dashboard/start_game', :is_admin => true do
+      players = Player.all(:is_verified => true)
+      players.shuffle!
+      start_time = Time.now
+      @game.start_time = start_time
+      @game.save
+
+      players.each_index do |i|
+        players[i].set_target_notify(settings.mailer,
+                                     players[(i + 1) % players.length])
+        players[i].last_activity = start_time
+        players[i].save!
+      end
+
+      redirect to('/admin/dashboard')
+    end
   end
 end
 

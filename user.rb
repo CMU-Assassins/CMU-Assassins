@@ -122,13 +122,22 @@ module Assassins
 
     post '/dashboard/assassinate', :logged_in => true do
       target = @player.target
-      if (params.has_key?('target_secret') &&
-          target.secret.casecmp(params['target_secret']) == 0)
+      if (@player.failed_kill_attempts > 5)
+        slim :dashboard, :locals => {:errors =>
+          ["You have entered too many incorrect secret words. Please contact us to unlock your account."]}
+      elsif (params.has_key?('target_secret') &&
+               target.secret.casecmp(params['target_secret']) == 0)
         target.is_alive = false
         target.save!
+        @player.kills += 1
+        @player.failed_kill_attempts = 0
+        @player.last_activity = Time.now
         @player.set_target_notify(settings.mailer, target.target)
+        @player.save!
         redirect to('/dashboard')
       else
+        @player.failed_kill_attempts += 1
+        @player.save!
         slim :dashboard, :locals => {:errors =>
           ["That isn't your target's secret. Please try again."]}
       end
