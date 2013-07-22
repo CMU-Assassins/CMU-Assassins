@@ -43,6 +43,7 @@ module Assassins
     property :failed_kill_attempts, Integer, :default => 0
     property :is_alive, Boolean, :default => true
     property :kills, Integer, :default => 0
+    property :last_activity, DateTime, :required => false
 
     property :verification_key, String,
              :default => lambda {|r,p| SecureRandom.uuid}
