@@ -4,25 +4,25 @@ require 'slim'
 
 module Assassins
   class App < Sinatra::Base
-    helpers do
-      def admin?
-        session.has_key? :admin_id
+    before do
+      @admin = nil
+      if session.has_key? :admin_id
+        @admin = Player.get session[:admin_id]
+        if @admin.nil?
+          session.delete :admin_id
+        end
       end
+    end
+
+    set :is_admin do |val|
+      condition {!@admin.nil? == val}
     end
 
     get '/admin' do
-      if admin?
+      if !@admin.nil?
         redirect to('/admin/dashboard')
       else
         redirect to('/admin/login')
-      end
-    end
-
-    get '/admin/dashboard' do
-      if admin?
-        slim :'admin/dashboard'
-      else
-        redirect to('/admin')
       end
     end
 
@@ -57,7 +57,7 @@ module Assassins
     end
 
     get '/admin/create' do
-      if Admin.count == 0 || admin?
+      if Admin.count == 0 || !@admin.nil?
         slim :'admin/create'
       else
         redirect to('/admin')
@@ -65,7 +65,7 @@ module Assassins
     end
 
     post '/admin/create' do
-      if Admin.count != 0 && !admin?
+      if Admin.count != 0 && @admin.nil?
         return redirect to('/')
       end
 
@@ -82,6 +82,10 @@ module Assassins
       else
         slim :'admin/create', :locals => {:errors => admin.errors.full_messages}
       end
+    end
+
+    get '/admin/dashboard', :is_admin => true do
+      slim :'admin/dashboard'
     end
   end
 end
