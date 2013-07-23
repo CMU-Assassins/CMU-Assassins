@@ -34,5 +34,7 @@
                 button.btn.btn-primary type='submit' Confirm
 
 
+      - elsif !@game.start_time.nil?
+        h3 Your target will be assigned on #{@game.start_time.strftime('%B %-d, %Y')}!
       - else
-        h3 Your target will be assigned on July 22, 2013!
+        h3 Your target will be assigned once the game starts!

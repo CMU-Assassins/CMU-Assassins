@@ -61,12 +61,16 @@ html
     script src=url('/js/bootstrap-sortable.js')
     script src=url('/js/county.js')
 
+    - unless @game.start_time.nil?
+      script type='text/javascript'
+        | var start_time = #{@game.start_time};
+
     coffee:
       $ ->
         $('.editable').each () ->
           $(this).editable()
         $('#count-down').county {
-          endDateTime: new Date('2013/7/22 00:30:00')
+          endDateTime: new Date(start_time * 1000)
           reflection: false
           animation: 'scroll'
           theme: 'black' }
