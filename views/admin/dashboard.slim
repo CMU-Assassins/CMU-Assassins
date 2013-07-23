@@ -10,6 +10,10 @@
         #active
           | Active users: 
           strong = Assassins::Player.count(:is_verified => true)
-        - unless game_started?
+        - if game_started?
+          #alive
+            | Alive users: 
+            = Assassins::Player.count(:is_verified => true, :is_alive => true)
+        - else
           form action=url('/admin/dashboard/start_game') method='post'
             button.btn.btn-inverse type='submit' Start teh game!!!
