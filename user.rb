@@ -23,8 +23,8 @@ module Assassins
     end
 
     post '/login' do
-      player = Player.first(:andrew_id => params['andrew_id'])
-
+      player = Player.first(:andrew_id => params.has_key?('andrew_id') ?
+                                            params['andrew_id'].downcase : nil)
       if (player.nil?)
         return slim :login, :locals => {:errors =>
           ['Invalid Andrew ID. Please try again.']}
@@ -65,7 +65,8 @@ module Assassins
       end
 
       player = Player.new(:name => params['name'],
-                          :andrew_id => params['andrew_id'],
+                          :andrew_id => params.has_key?('andrew_id') ?
+                                          params['andrew_id'].downcase : nil,
                           :floor_id => params['floor'],
                           :program_id => params['program'])
       player.generate_secret! 2
