@@ -25,6 +25,7 @@ insert into assassins_floors (name, description) VALUES ('E4', 'E Tower 4th Floo
 insert into assassins_floors (name, description) VALUES ('E5', 'E Tower 5th Floor');
 insert into assassins_floors (name, description) VALUES ('E6', 'E Tower 6th Floor');
 insert into assassins_floors (name, description) VALUES ('E7', 'E Tower 7th Floor');
+insert into assassins_floors (name, description) VALUES ('C', 'Commuter student');
 
 
 insert into assassins_programs (title) VALUES ('AP/EA');
