@@ -9,6 +9,7 @@ module Assassins
         :from_name => 'CMU Assassins',
         :text => body,
         :to => to,
+        :preserve_recipients => false,
         :from_email => 'donotreply@cmu-assassins.tk'
       }
       if !mailer.nil?

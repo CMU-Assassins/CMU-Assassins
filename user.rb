@@ -13,6 +13,15 @@ module Assassins
       Email.send([{:email => self.email, :name => self.name}], subject, message)
     end
 
+    def self.send_email_all (subject, message)
+      to = []
+      players = Player.all(:is_verified => true)
+      players.each do |player|
+        to << {:email => player.email, :name => player.name}
+      end
+      Email.send(to, subject, message)
+    end
+
     def self.prune_inactive
       timeout = Time.now() - (60 * 60 * 24 * 3)
       Player.all(:is_verified => true, :is_alive => true).each do |player|
