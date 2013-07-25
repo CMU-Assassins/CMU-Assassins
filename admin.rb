@@ -84,8 +84,8 @@ module Assassins
       end
     end
 
-    post '/admin/dashboard/check_inactive', :is_admin => true do
-      check_timeout()
+    post '/admin/dashboard/prune_inactive', :is_admin => true do
+      Player.prune_inactive
       redirect to('/admin/dashboard')
     end
 
@@ -101,8 +101,7 @@ module Assassins
       @game.save
 
       players.each_index do |i|
-        players[i].set_target_notify(settings.mailer,
-                                     players[(i + 1) % players.length])
+        players[i].set_target_notify(players[(i + 1) % players.length])
         players[i].last_activity = start_time
         players[i].save!
       end

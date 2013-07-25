@@ -3,6 +3,53 @@ require 'data_mapper'
 require 'slim'
 
 module Assassins
+  class Player
+    def send_verification (url)
+      send_email('Please verify your identity',
+                 "Secret words: #{self.secret}\n#{url}")
+    end
+
+    def send_email (subject, message)
+      mailer = Assassins::App.settings.mailer
+      message = {
+        :subject => subject,
+        :from_name => 'CMU Assassins',
+        :text => message,
+        :to => [
+          {
+            :email => self.email,
+            :name => self.name
+          }
+        ],
+        :from_email => 'donotreply@cmu-assassins.tk'
+      }
+      if !mailer.nil?
+        $stderr.puts mailer.messages.send(message)
+      else
+        $stderr.puts "Sending email to #{self.email}"
+        $stderr.puts "Subject \"#{subject}\""
+        $stderr.puts "Message body:\n#{message[:text]}"
+      end
+    end
+
+    def self.prune_inactive
+      timeout = Time.now() - (60 * 60 * 24 * 3)
+      Player.all(:is_verified => true, :is_alive => true).each do |player|
+        if (player.last_activity < timeout)
+          assassin = Assassins::Player.first(:target_id => player.id, :is_alive => true)
+          $stderr.puts "PLAYER TIMED OUT: #{player.name}"
+          player.is_alive = false
+          player.save!
+          assassin.set_target_notify(player.target)
+          assassin.save!
+
+          player.send_email('You have been removed from the game',
+                            "You have been removed from the game because you have not made a kill in 3 days. Thanks for playing!")
+        end
+      end
+    end
+  end
+
   class App < Sinatra::Base
     before do
       @player = nil
@@ -71,7 +118,7 @@ module Assassins
                           :program_id => params['program'])
       player.generate_secret! 2
       if (player.save)
-        player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+        player.send_verification(url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
         slim :signup_confirm
       else
         slim :signup, :locals => {:errors => player.errors.full_messages}
@@ -96,7 +143,7 @@ module Assassins
 
       player.verification_key = SecureRandom.uuid
       player.save!
-      player.send_verification(settings.mailer, url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
+      player.send_verification(url("/signup/verify?aid=#{player.andrew_id}&nonce=#{player.verification_key}"))
       slim :signup_confirm
     end
 
@@ -133,9 +180,9 @@ module Assassins
         @player.kills += 1
         @player.failed_kill_attempts = 0
         @player.last_activity = Time.now
-        @player.set_target_notify(settings.mailer, target.target)
+        @player.set_target_notify(target.target)
         @player.save!
-        target.send_email(settings.mailer, 'You were assassinated',
+        target.send_email('You were assassinated',
                           "You have been assassinated by #{@player.name}. Thanks for playing!")
         redirect to('/dashboard')
       else

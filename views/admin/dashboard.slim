@@ -14,7 +14,7 @@
           #alive
             | Alive users: 
             strong = Assassins::Player.count(:is_verified => true, :is_alive => true)
-          form action=url('/admin/dashboard/check_inactive') method='post'
+          form action=url('/admin/dashboard/prune_inactive') method='post'
             button.btn.btn-danger type='submit' Check for inactive users
         - else
           form action=url('/admin/dashboard/start_game') method='post'

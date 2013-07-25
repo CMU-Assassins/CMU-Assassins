@@ -49,17 +49,10 @@ module Assassins
              :default => lambda {|r,p| SecureRandom.uuid}
     property :is_verified, Boolean, :default => false
 
-    def set_target_notify (mailer, target)
+    def set_target_notify (target)
       self.target = target
-      send_email(mailer,
-                 'You have a new target!',
+      send_email('You have a new target!',
                  "Name: #{target.name}\nFloor: #{target.floor.description}\nProgram: #{target.program.title}\n\nPlease remember that the official rules are posted at http://www.cmu-assassins.tk/rules")
-    end
-
-    def send_verification (mailer, url)
-      send_email(mailer,
-                 'Please verify your identity',
-                 "Secret words: #{self.secret}\n#{url}")
     end
 
     def generate_secret! (num_words)
@@ -73,34 +66,12 @@ module Assassins
       self.secret = secret_words.join(' ')
     end
 
-    def active?
-      self.is_verified && self.is_alive
-    end
-
     def email
       "#{self.andrew_id}@andrew.cmu.edu"
     end
 
-    def send_email (mailer, subject, message)
-      message = {
-        :subject => subject,
-        :from_name => 'CMU Assassins',
-        :text => message,
-        :to => [
-          {
-            :email => self.email,
-            :name => self.name
-          }
-        ],
-        :from_email => 'donotreply@cmu-assassins.tk'
-      }
-      if !mailer.nil?
-        $stderr.puts mailer.messages.send(message)
-      else
-        $stderr.puts "Sending email to #{self.email}"
-        $stderr.puts "Subject \"#{subject}\""
-        $stderr.puts "Message body:\n#{message[:text]}"
-      end
+    def active?
+      self.is_verified && self.is_alive
     end
   end
 
