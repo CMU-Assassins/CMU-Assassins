@@ -196,7 +196,7 @@ module Assassins
     get /^\/dashboard(\/.*)?$/, :logged_in => false do
       redirect to('/login')
     end
- end
+  end
 end
 
 # vim:set ts=2 sw=2 et:
