@@ -84,6 +84,11 @@ module Assassins
       end
     end
 
+    post '/admin/dashboard/check_inactive', :is_admin => true do
+      check_timeout()
+      redirect to('/admin/dashboard')
+    end
+
     get '/admin/dashboard', :is_admin => true do
       slim :'admin/dashboard'
     end
