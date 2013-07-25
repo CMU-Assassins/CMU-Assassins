@@ -10,26 +10,7 @@ module Assassins
     end
 
     def send_email (subject, message)
-      mailer = Assassins::App.settings.mailer
-      message = {
-        :subject => subject,
-        :from_name => 'CMU Assassins',
-        :text => message,
-        :to => [
-          {
-            :email => self.email,
-            :name => self.name
-          }
-        ],
-        :from_email => 'donotreply@cmu-assassins.tk'
-      }
-      if !mailer.nil?
-        $stderr.puts mailer.messages.send(message)
-      else
-        $stderr.puts "Sending email to #{self.email}"
-        $stderr.puts "Subject \"#{subject}\""
-        $stderr.puts "Message body:\n#{message[:text]}"
-      end
+      Email.send([{:email => self.email, :name => self.name}], subject, message)
     end
 
     def self.prune_inactive
