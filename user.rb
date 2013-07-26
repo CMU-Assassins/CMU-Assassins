@@ -24,18 +24,29 @@ module Assassins
 
     def self.prune_inactive
       timeout = Time.now() - (60 * 60 * 24 * 3)
+      timeout_notify = []
+      target_notify = []
       Player.all(:is_verified => true, :is_alive => true).each do |player|
         if (player.last_activity < timeout)
-          assassin = Assassins::Player.first(:target_id => player.id, :is_alive => true)
+          assassin = Assassins::Player.first(:target_id => player.id,
+                                             :is_alive => true)
           $stderr.puts "PLAYER TIMED OUT: #{player.name}"
+
           player.is_alive = false
           player.save!
-          assassin.set_target_notify(player.target)
-          assassin.save!
+          timeout_notify << {:email => player.email, :name => player.name}
 
-          player.send_email('You have been removed from the game',
-                            "You have been removed from the game because you have not made a kill in 3 days. Thanks for playing!")
+          assassin.target = player.target
+          assassin.save!
+          target_notify << assassin
         end
+      end
+
+      Email.send(timeout_notify, 'You have been removed from the game',
+                 "You have been removed from the game because you have not made a kill in 3 days. Thanks for playing!")
+
+      target_notify.uniq!.each do |assassin|
+        assassin.set_target_notify(assassin.target)
       end
     end
   end
