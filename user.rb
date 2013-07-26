@@ -42,11 +42,15 @@ module Assassins
         end
       end
 
-      Email.send(timeout_notify, 'You have been removed from the game',
-                 "You have been removed from the game because you have not made a kill in 3 days. Thanks for playing!")
+      if !timeout_notify.empty?
+        Email.send(timeout_notify, 'You have been removed from the game',
+                   "You have been removed from the game because you have not made a kill in 3 days. Thanks for playing!")
+      end
 
-      target_notify.uniq!.each do |assassin|
-        assassin.set_target_notify(assassin.target)
+      if !target_notify.empty?
+        target_notify.uniq!.each do |assassin|
+          assassin.set_target_notify(assassin.target)
+        end
       end
     end
   end
