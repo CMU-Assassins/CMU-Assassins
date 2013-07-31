@@ -19,6 +19,15 @@
         - else
           form action=url('/admin/dashboard/start_game') method='post'
             button.btn.btn-inverse type='submit' Start teh game!!!
+
+        #mass_email
+          form action=url('/admin/dashboard/send_mass_email') method='post'
+            fieldset
+              legend Mass email
+              input.input-xlarge type='text' placeholder='Subject' name='subject'
+              .body
+                textarea.input-xlarge rows=3 name='body'
+              button.btn.btn-primary type='submit' Send!
       .progress.progress-striped.active
         .bar.bar-danger style='width: 10%;'
         .bar.bar-warning style='width: 10%;'

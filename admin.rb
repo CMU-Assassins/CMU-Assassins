@@ -108,6 +108,11 @@ module Assassins
 
       redirect to('/admin/dashboard')
     end
+
+    post '/admin/dashboard/send_mass_email', :is_admin => true do
+      Player.send_email_all(params['subject'], params['body'])
+      redirect to('/admin/dashboard')
+    end
   end
 end
 
