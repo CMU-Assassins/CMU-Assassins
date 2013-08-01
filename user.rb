@@ -23,7 +23,7 @@ module Assassins
     end
 
     def self.prune_inactive
-      timeout = Time.now() - (60 * 60 * 24 * 3)
+      timeout = Time.now() - (60 * 60 * 24 * 2)
       timeout_notify = []
       target_notify = []
       Player.all(:is_verified => true, :is_alive => true).each do |player|
