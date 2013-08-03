@@ -63,7 +63,7 @@ html
 
     - unless @game.start_time.nil?
       script type='text/javascript'
-        | var start_time = #{@game.start_time};
+        | var start_time = #{@game.start_time.to_i};
 
     coffee:
       $ ->
