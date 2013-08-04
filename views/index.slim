@@ -2,6 +2,10 @@
   .row
     .center#count-down
 .row
+  .span12
+    .alert.alert-error
+      | If you never received a verification email, please enter your Andrew ID on <a href="#{url('/signup/resend_verification')}">this page</a> to have another one sent.
+.row
   - if @player.nil? && !game_started?
     .span6
       img src='logo.png'
