@@ -10,7 +10,9 @@
         #active
           | Active users: 
           strong = Assassins::Player.count(:is_verified => true)
-        - if game_started?
+        - if game_state == :postgame
+          p Game has ended.
+        - elsif game_state == :ingame
           #alive
             | Alive users: 
             strong = Assassins::Player.count(:is_verified => true, :is_alive => true)

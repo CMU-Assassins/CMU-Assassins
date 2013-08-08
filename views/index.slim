@@ -1,12 +1,17 @@
-- unless game_started?
+- if game_state == :pregame
   .row
     .span12
       .alert.alert-error
         | If you never received a verification email, please enter your Andrew ID on <a href="#{url('/signup/resend_verification')}">this page</a> to have a new one sent.
   .row
     .center#count-down
+- elsif game_state == :postgame
+  .row
+    .span12
+      .alert.alert-info
+        | The game has now ended. Congratulations to #{@game.winner.name} for being the last one standing!
 .row
-  - if @player.nil? && !game_started?
+  - if @player.nil? && game_state == :pregame
     .span6
       img src='logo.png'
       img.hidden-phone src='skull.png' alt="You won't see it coming"

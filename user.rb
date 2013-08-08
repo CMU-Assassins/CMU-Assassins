@@ -104,11 +104,11 @@ module Assassins
       redirect to('/')
     end
 
-    get '/signup', :game_started => false do
+    get '/signup', :game_state => :pregame do
       slim :signup
     end
 
-    post '/signup', :game_started => false do
+    post '/signup', :game_state => :pregame do
       if (params.has_key?('andrew_id') && params['andrew_id'].index('@'))
         return slim :signup, :locals => {:errors =>
           ['Please enter only your Andrew ID, not your full email address.']};
@@ -128,11 +128,11 @@ module Assassins
       end
     end
 
-    get '/signup/resend_verification', :game_started => false do
+    get '/signup/resend_verification', :game_state => :pregame do
       slim :resend_verification
     end
 
-    post '/signup/resend_verification', :game_started => false do
+    post '/signup/resend_verification', :game_state => :pregame do
       player = Player.first(:andrew_id => params['andrew_id'])
       if (player.nil?)
         return slim :resend_verification, :locals => {:errors =>
@@ -150,7 +150,7 @@ module Assassins
       slim :signup_confirm
     end
 
-    get '/signup/verify', :game_started => false do
+    get '/signup/verify', :game_state => :pregame do
       player = Player.first(:andrew_id => params['aid'])
 
       if (player.nil? || player.is_verified)
@@ -171,7 +171,7 @@ module Assassins
       slim :dashboard
     end
 
-    post '/dashboard/assassinate', :logged_in => true do
+    post '/dashboard/assassinate', :logged_in => true, :game_state => :ingame do
       target = @player.target
       if (@player.failed_kill_attempts > 5)
         slim :dashboard, :locals => {:errors =>

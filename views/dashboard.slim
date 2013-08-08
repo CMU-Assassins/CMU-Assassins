@@ -16,7 +16,7 @@
   .span5.text-center
     h3 Your target's information
     .well
-      - if game_started? and not @player.target.nil?
+      - if game_state == :ingame and not @player.target.nil?
         h4 = @player.target.name
         h5.user-info
           .floor 
@@ -32,8 +32,8 @@
               .input-append
                 input.input-medium#target_words name='target_secret' type='text' placeholder='Tomato Sneaker' required=true
                 button.btn.btn-primary type='submit' Confirm
-
-
+      - elsif game_state == :postgame
+        h3 Congratulations, you have won!
       - elsif !@game.start_time.nil?
         h3 Your target will be assigned on #{@game.start_time.strftime('%B %-d, %Y')}!
       - else

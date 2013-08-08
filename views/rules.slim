@@ -21,7 +21,7 @@
       span
         | If you have any questions about the rules, or feel that a player is using the wording of the rules to gain an unfair advantage, please <a href="#{url('/contact')}">contact us</a>!
 
-      - if game_started?
-        h6 These rules are final and will not be changed without a notification email being sent to every player.
-      -else
+      - if game_state == :pregame
         h6 These rules are subject to change without notification until the game starts, at which point they will become final.
+      -else
+        h6 These rules are final and will not be changed without a notification email being sent to every player.

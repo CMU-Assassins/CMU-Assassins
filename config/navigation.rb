@@ -5,11 +5,11 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.dom_class = 'nav'
     primary.selected_class = 'active'
     primary.item :signup, 'Sign Up', url('/signup'),
-                 :if => lambda {@player.nil? && !game_started?}
+                 :if => lambda {@player.nil? && game_state == :pregame}
     primary.item :dashboard, 'Dashboard', url('/dashboard'),
                  :if => logged_in_check
     primary.item :leaderboard, 'Leaderboard', url('/leaderboard'),
-                 :if => lambda {game_started?}
+                 :if => lambda {game_state != :pregame}
     primary.item :rules, 'Rules', url('/rules')
     primary.item :contact, 'Contact Us', url('/contact')
     primary.item :admin, 'Admin', url('/admin/dashboard'),
