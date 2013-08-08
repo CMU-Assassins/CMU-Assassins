@@ -64,7 +64,7 @@ end
 
 require_relative 'email.rb'
 require_relative 'game.rb'
-require_relative 'user.rb'
+require_relative 'player.rb'
 require_relative 'admin.rb'
 require_relative 'static.rb'
 
