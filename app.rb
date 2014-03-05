@@ -57,7 +57,7 @@ module Assassins
     end
 
     not_found do
-      slim :404
+      slim :'404'
     end
   end
 end
