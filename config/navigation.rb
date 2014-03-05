@@ -2,7 +2,7 @@ SimpleNavigation::Configuration.run do |navigation|
   logged_in_check = lambda {!@player.nil?}
 
   navigation.items do |primary|
-    primary.dom_class = 'nav'
+    primary.dom_class = 'nav navbar-nav'
     primary.selected_class = 'active'
     primary.item :signup, 'Sign Up', url('/signup'),
                  :if => lambda {@player.nil? && game_state == :pregame}

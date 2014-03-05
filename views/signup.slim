@@ -1,26 +1,27 @@
-form.form-horizontal action=url('/signup') method='post'
-  fieldset
-    legend Sign Up
-    .control-group
-      label.control-label for='name' Full Name
-      .controls
-        input.input-block-level#name name='name' type='text' placeholder='Andrew Carnegie' required=true
-    .control-group
-      label.control-label for='andrew_id' Andrew ID
-      .controls
-        input.input-block-level#andrew_id name='andrew_id' type='text' placeholder='acarnegie' required=true
-    .control-group
-      label.control-label for='floor' Floor/Tower
-      .controls
-        select.input-block-level name='floor'
-          - Assassins::Floor.all.each do |floor|
-            option value=floor.id #{floor.description}
-    .control-group
-      label.control-label Program
-      .controls
+form.form-horizontal(action=url('/signup') method='post' role='role')
+  legend Sign Up
+  .form-group
+    label.control-label.col-sm-2(for='name') Full Name
+    .col-sm-10
+      input.form-control#name(name='name' type='text' placeholder='Andrew Carnegie' required=true)
+  .form-group
+    label.control-label.col-sm-2(for='andrew_id') Andrew ID
+    .col-sm-10
+      input.form-control#andrew_id(name='andrew_id' type='text' placeholder='acarnegie' required=true)
+  .form-group
+    label.control-label.col-sm-2(for='floor') Floor/Tower
+    .col-sm-10
+      select.form-control(name='floor')
+        - Assassins::Floor.all.each do |floor|
+          option(value=floor.id) #{floor.description}
+  .form-group
+    label.control-label.col-sm-2(for='program') Program
+    .col-sm-10
+      .radio
         - Assassins::Program.all.each do |program|
-          label.radio name='program'
-            input type='radio' name='program' value=program.id #{program.title}
-    .control-group
-      .controls
-        button.btn.btn-primary type='submit' Sign Up
+          label
+            input(type='radio' name='program' value=program.id)
+            #{program.title}
+  .form-group
+    .col-sm-10.col-sm-offset-2
+      button.btn.btn-primary(type='submit') Sign Up

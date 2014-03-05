@@ -1,14 +1,13 @@
-form.form-horizontal action=url('/admin/login') method='post'
-  fieldset
-    legend Admin login
-    .control-group
-      label.control-label for='username' Username
-      .controls
-        input.input-block-level#username name='username' type='text' required=true
-    .control-group
-      label.control-label for='password' Password
-      .controls
-        input.input-block-level#password name='password' type='password' required=true
-    .control-group
-      .controls
-        button.btn.btn-primary type='submit' Log in
+form.form-horizontal(action=url('/admin/login') method='post')
+  legend Admin login
+  .form-group
+    label.control-label.col-sm-2(for='username') Username
+    .col-sm-10
+      input.form-control#username(name='username' type='text' required=true)
+  .form-group
+    label.control-label.col-sm-2(for='password') Password
+    .col-sm-10
+      input.form-control#password(name='password' type='password' required=true)
+  .form-group
+    .col-sm-10.col-sm-offset-2
+      button.btn.btn-primary(type='submit') Log in

@@ -1,9 +1,9 @@
 .row
-  .offset1.span5.text-center
+  .col-sm-5.col-sm-offset-1.text-center
     h3 Your information
     .well
       h4 = @player.name
-      h5.user-info
+      p.user-info
         .floor 
           strong Floor: 
           = @player.floor.description
@@ -13,12 +13,12 @@
         .secret
           strong Secret Words: 
           .label.label-success = @player.secret
-  .span5.text-center
+  .col-sm-5.text-center
     h3 Your target's information
     .well
       - if game_state == :ingame and not @player.target.nil?
         h4 = @player.target.name
-        h5.user-info
+        p.user-info
           .floor 
             strong Floor: 
             = @player.target.floor.description
@@ -26,14 +26,19 @@
             strong Program: 
             = @player.target.program.title
           .confirm
-          form action=url('/dashboard/assassinate') method='post'
-            fieldset
+          br
+          form(action=url('/dashboard/assassinate') method='post')
+            .form-group
               label Enter your target's secret words to confirm your assassination
-              .input-append
-                input.input-medium#target_words name='target_secret' type='text' placeholder='Tomato Sneaker' required=true
-                button.btn.btn-primary type='submit' Confirm
+              .input-group.col-sm-6.col-sm-offset-3
+                input.form-control#target_words(name='target_secret' type='text' placeholder='Tomato Sneaker' required=true)
+                span.input-group-btn
+                  button.btn.btn-primary(type='submit') Confirm
       - elsif game_state == :postgame
-        h3 Congratulations, you have won!
+        h3
+          | Congratulations, you have won! Did you see your name on the 
+          a(href=url('/')) Home Page
+          | yet?
       - elsif !@game.start_time.nil?
         h3 Your target will be assigned on #{@game.start_time.strftime('%B %-d, %Y')}!
       - else

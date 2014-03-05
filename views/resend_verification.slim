@@ -1,11 +1,11 @@
 p If you did not receive your verification email, please enter your Andrew ID below to have a new one sent.
 
-form.form-horizontal action=url('/signup/resend_verification') method='post'
-  fieldset
-    .control-group
-      label.control-label for='andrew_id' Andrew ID
-      .controls
-        input.input-block-level#andrew_id name='andrew_id' type='text' placeholder='acarnegie' required=true
-    .control-group
-      .controls
-        button.btn.btn-primary type='submit' Resend Verification
+form.form-horizontal(action=url('/signup/resend_verification') method='post')
+  legend Resend Verification Email
+  .form-group
+    label.control-label.col-sm-2(for='andrew_id') Andrew ID
+    .col-sm-10
+      input.form-control#andrew_id(name='andrew_id' type='text' placeholder='acarnegie' required=true)
+  .form-group
+    .col-sm-10.col-sm-offset-2
+      button.btn.btn-primary(type='submit') Resend Verification

@@ -1,14 +1,13 @@
-form.form-horizontal action=url('/login') method='post' 
-  fieldset
-    legend Log In
-    .control-group
-      label.control-label for='andrew_id' Andrew ID
-      .controls
-        input.input-block-level#andrew_id name='andrew_id' type='text' placeholder='acarnegie' required=true
-    .control-group
-      label.control-label for='secret' Secret Words
-      .controls
-        input.input-block-level#secret name='secret' type='password' required=true
-    .control-group
-      .controls
-        button.btn.btn-primary type='submit' Log In
+form.form-horizontal(action=url('/login') method='post')
+  legend Log In
+  .form-group
+    label.control-label.col-sm-2(for='andrew_id') Andrew ID
+    .col-sm-10
+      input.form-control#andrew_id(name='andrew_id' type='text' placeholder='acarnegie' required=true)
+  .form-group
+    label.control-label.col-sm-2(for='secret') Secret Words
+    .col-sm-10
+      input.form-control#secret(name='secret' type='password' required=true)
+  .form-group
+    .col-sm-10.col-sm-offset-2
+      button.btn.btn-primary(type='submit') Log In

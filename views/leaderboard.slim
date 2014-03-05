@@ -1,13 +1,13 @@
 .row
-  .offset1.span10
+  .col-md-offset-1.col-md-10
     .well
       table.table.table-hover.table-striped.sortable
         thead.noselect
           tr
-            th data-defaultsort='desc' Assassinations
+            th(data-defaultsort='desc') Assassinations
             th Player Name
             th Program
-            th Still Alive
+            th Still Alive?
         tbody
           - Assassins::Player.all(:is_verified => true).each do |player|
             tr
@@ -15,8 +15,10 @@
               td = player.name
               td = player.program.title
               - if player.is_alive
-                td data-value="true"
-                  i.icon-check.icon-white
+                td(data-value="true")
+                  span.label.label-default
+                    i.glyphicon.glyphicon-user
               - else
-                td data-value="false"
-                  i.icon-screenshot.icon-white
+                td(data-value="false")
+                  span.label.label-danger
+                    i.glyphicon.glyphicon-remove

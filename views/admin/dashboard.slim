@@ -1,8 +1,6 @@
 .row
-  .offset3.span6
+  .col-sm-6.col-sm-offset-3
     .well.text-center
-      .row
-        a.pull-right.btn.btn-primary href=url('/admin/logout') Admin Logout
       .row
         #registered
           | Registered users: 
@@ -16,28 +14,27 @@
           #alive
             | Alive users: 
             strong = Assassins::Player.count(:is_verified => true, :is_alive => true)
-          form action=url('/admin/dashboard/prune_inactive') method='post'
-            button.btn.btn-danger type='submit' Check for inactive users
+          form(action=url('/admin/dashboard/prune_inactive') method='post')
+            .form-group
+              button.btn.btn-danger(type='submit') Check for inactive users
         - else
-          form action=url('/admin/dashboard/start_game') method='post'
-            button.btn.btn-inverse type='submit' Start teh game!!!
-
+          form(action=url('/admin/dashboard/start_game') method='post')
+            button.btn.btn-info(type='submit') Start teh game!!!
+  .col-sm-2.col-sm-offset-1
+    a.btn.btn-primary.btn-block(href=url('/admin/logout')) Admin Logout
+.row
+  .col-sm-6.col-sm-offset-3
+    .well.text-center
+      .row
         #mass_email
-          form action=url('/admin/dashboard/send_mass_email') method='post'
-            fieldset
-              legend Mass email
-              input.input-xlarge type='text' placeholder='Subject' name='subject'
+          form(action=url('/admin/dashboard/send_mass_email') method='post')
+            legend Mass email
+            .form-group
+            .col-sm-10.col-sm-offset-1
+              input.form-control(type='text' placeholder='Subject' name='subject')
+            .form-group
               .body
-                textarea.input-xlarge rows=3 name='body'
-              button.btn.btn-primary type='submit' Send!
-      .progress.progress-striped.active
-        .bar.bar-danger style='width: 10%;'
-        .bar.bar-warning style='width: 10%;'
-        .bar.bar-success style='width: 10%;'
-        .bar style='width: 10%;'
-        .bar.bar-danger style='width: 10%;'
-        .bar.bar-warning style='width: 10%;'
-        .bar.bar-success style='width: 10%;'
-        .bar style='width: 10%;'
-        .bar.bar-danger style='width: 10%;'
-        .bar.bar-warning style='width: 10%;'
+              .col-sm-10.col-sm-offset-1
+                textarea.form-control(rows=3 name='body')
+            .form-group
+              button.btn.btn-primary(type='submit') Send!

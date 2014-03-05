@@ -10,43 +10,54 @@ html
 
     link rel='icon' type='image/png' href=url('/favicon.png')
 
-    link href='//netdna.bootstrapcdn.com/bootswatch/2.3.2/cyborg/bootstrap.min.css' rel='stylesheet'
+    link href='//netdna.bootstrapcdn.com/bootswatch/3.1.1/cyborg/bootstrap.min.css' rel='stylesheet'
     
     link href=url('/css/main.css') rel='stylesheet'
 
-    link href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css' rel='stylesheet'
     link href='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/css/bootstrap-editable.css' rel='stylesheet'
     link href=url('/css/bootstrap-sortable.css') rel='stylesheet'
     link href=url('/css/county.css') rel='stylesheet'
 
   body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          a.brand href=url('/') CMU Assassins
+    .navbar.navbar-default.navbar-static-top(role='navigation')
+      .container
+        / Toggle Navbar Button
+        .navbar-header
+          button.navbar-toggle(type='button' data-toggle="collapse" data-target='#navbar-collapse')
+            span.sr-only Toggle Navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
 
-          a.btn.btn-navbar data-toggle='collapse' data-target='.nav-collapse'
-            .icon-bar
-            .icon-bar
-            .icon-bar
+          a.navbar-brand(href=url('/')) CMU Assassins
 
-          .nav-collapse.collapse
-            == render_navigation
-            - unless @player.nil?
-              a.btn.pull-right href=url('/logout') Log Out
-            - else
-              form.navbar-form.pull-right(action=url('/login') method='post')
-                .input-prepend.fix-padding
-                  span.add-on
-                    i.icon-user
-                  input.input-medium type='text' name='andrew_id' placeholder='Andrew ID'
-                .input-prepend.fix-padding
-                  span.add-on
-                    i.icon-lock
-                  input.input-small type='password' name='secret' placeholder='Secret Words'
-                button.btn.btn-primary.fix-padding type='submit' Log In
+        .collapse.navbar-collapse#navbar-collapse
+          == render_navigation
+          - unless @player.nil?
+            .navbar-right
+              p.navbar-text Logged in as #{@player.name}
+              a.navbar-btn.btn.btn-default(href=url('/logout')) Log Out
+          - else
+            ul.nav.navbar-nav.navbar-right
+              li.dropdown#login-dropdown
+                a.dropdown-toggle(href='#' data-toggle='dropdown')
+                  | Login 
+                  b.caret
+                .dropdown-menu
+                  form(action=url('/login') method='post' role='form')
+                    .form-group
+                      .input-group
+                        span.input-group-addon
+                          i.glyphicon.glyphicon-user
+                        input.form-control(type='text' name='andrew_id' placeholder='Andrew ID')
+                    .form-group
+                      .input-group
+                        span.input-group-addon
+                          i.glyphicon.glyphicon-lock
+                        input.form-control(type='password' name='secret' placeholder='Secret Words')
+                    button.btn.btn-primary.btn-block(type='submit') Log In                    
     .container
-      - if (defined?(errors) && errors.respond_to?(:each))
+      - if (defined?(dangers) && errors.respond_to?(:each))
         .alert.alert-error.alert-block
           ul
             - errors.each do |message|
@@ -54,12 +65,12 @@ html
                 = message
       == yield
 
-    script src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'
-    script src='//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
-    script src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js'
-    script src='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/js/bootstrap-editable.min.js'
+    / script src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js'
+    script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'
+    script src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'
+    / script src='//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/js/bootstrap-editable.min.js'
     script src=url('/js/bootstrap-sortable.js')
-    script src=url('/js/county.js')
+    / script src=url('/js/county.js)
 
     - unless @game.start_time.nil?
       script type='text/javascript'
